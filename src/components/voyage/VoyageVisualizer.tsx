@@ -96,7 +96,7 @@ export default function VoyageVisualizer() {
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-primary flex items-center gap-3">
             <Ship className="w-8 h-8"/>
-            Voyage Visualizer
+            UN shipping line
           </CardTitle>
           <CardDescription>Enter the tracking ID to view your shipment's journey.</CardDescription>
         </CardHeader>
@@ -124,7 +124,7 @@ export default function VoyageVisualizer() {
       <div className="w-full flex flex-col sm:flex-row justify-between items-center gap-4">
         <h1 className="text-3xl font-bold text-primary flex items-center gap-3">
           <Ship className="w-8 h-8"/>
-          Voyage Visualizer
+          UN shipping line
         </h1>
         <Button variant="outline" onClick={resetTracking}>Track Another Shipment</Button>
       </div>
