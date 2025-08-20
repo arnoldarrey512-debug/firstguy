@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import mapboxgl, { LngLatLike, Map as MapboxMap } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { Ship, Anchor } from 'lucide-react';
+import { Ship, Anchor, TriangleAlert } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import type { LOCATIONS } from '@/lib/voyage';
 import ReactDOMServer from 'react-dom/server';
@@ -13,7 +13,10 @@ type MapProps = {
   locations: typeof LOCATIONS;
 };
 
-mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN!;
+const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+if (MAPBOX_TOKEN) {
+  mapboxgl.accessToken = MAPBOX_TOKEN;
+}
 
 export default function Map({ shipPosition, locations }: MapProps) {
   const mapContainer = useRef<HTMLDivElement | null>(null);
@@ -24,7 +27,7 @@ export default function Map({ shipPosition, locations }: MapProps) {
   const routeCoordinates = Object.values(locations).map(l => [l.lng, l.lat]);
 
   useEffect(() => {
-    if (map.current || !mapContainer.current) return;
+    if (!MAPBOX_TOKEN || map.current || !mapContainer.current) return;
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
@@ -117,7 +120,17 @@ export default function Map({ shipPosition, locations }: MapProps) {
   return (
     <Card className="w-full shadow-lg">
       <CardContent className="p-2">
-        <div ref={mapContainer} className="relative w-full aspect-[10/6] bg-primary/5 rounded-md overflow-hidden" data-ai-hint="world map" />
+        <div ref={mapContainer} className="relative w-full aspect-[10/6] bg-muted/20 rounded-md overflow-hidden" data-ai-hint="world map">
+          {!MAPBOX_TOKEN && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/80 text-center p-4">
+              <TriangleAlert className="w-12 h-12 text-destructive mb-4" />
+              <h3 className="text-lg font-semibold text-destructive">Map Not Configured</h3>
+              <p className="text-sm text-muted-foreground">
+                Please provide a Mapbox access token in your environment variables to display the map.
+              </p>
+            </div>
+          )}
+        </div>
       </CardContent>
     </Card>
   );
