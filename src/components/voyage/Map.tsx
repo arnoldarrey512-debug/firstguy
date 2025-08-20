@@ -31,7 +31,7 @@ export default function Map({ shipPosition, locations }: MapProps) {
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/dark-v11',
+      style: 'mapbox://styles/mapbox/outdoors-v12',
       center: [85, 30], // Centered between locations
       zoom: 1.5,
       interactive: false,
@@ -73,7 +73,7 @@ export default function Map({ shipPosition, locations }: MapProps) {
           'line-cap': 'round',
         },
         paint: {
-          'line-color': 'hsl(var(--primary))',
+          'line-color': 'hsl(var(--destructive))',
           'line-width': 2,
           'line-dasharray': [2, 2],
         },
