@@ -5,11 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Ship } from 'lucide-react';
 
 import Map from './Map';
 import TrackingStatus from './TrackingStatus';
 import { TRACKING_ID, LOCATIONS, ROUTE, calculateShipPosition } from '@/lib/voyage';
+import Logo from './Logo';
 
 export default function VoyageVisualizer() {
   const [isTracking, setIsTracking] = useState(false);
@@ -95,8 +95,7 @@ export default function VoyageVisualizer() {
       <Card className="w-full max-w-md shadow-lg animate-in fade-in zoom-in-95">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-primary flex items-center gap-3">
-            <Ship className="w-8 h-8"/>
-            UN shipping line
+            <Logo className="w-12 h-12" />
           </CardTitle>
           <CardDescription>Enter the tracking ID to view your shipment's journey.</CardDescription>
         </CardHeader>
@@ -123,8 +122,7 @@ export default function VoyageVisualizer() {
     <div className="w-full max-w-6xl flex flex-col items-center gap-8 animate-in fade-in zoom-in-95">
       <div className="w-full flex flex-col sm:flex-row justify-between items-center gap-4">
         <h1 className="text-3xl font-bold text-primary flex items-center gap-3">
-          <Ship className="w-8 h-8"/>
-          UN shipping line
+            <Logo className="w-12 h-12" />
         </h1>
         <Button variant="outline" onClick={resetTracking}>Track Another Shipment</Button>
       </div>
