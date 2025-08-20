@@ -80,7 +80,7 @@ export default function LandingPage() {
       <Header />
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative h-[60vh] bg-cover bg-center" style={{backgroundImage: "url('https://placehold.co/1920x1080.png')"}} data-ai-hint="ocean container ship">
+        <section className="relative h-[60vh] bg-cover bg-center" style={{backgroundImage: "url('https://www.maersk.com/~/media_sc9/maersk/solutions/transportation-services/ocean-transport/images/ocean-transport_1920x600.jpg?h=600&w=1920&hash=7E26315CEEB3474480E2C1000597DD3A')"}} data-ai-hint="ocean container ship">
           <div className="absolute inset-0 bg-black/50" />
           <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
             <h1 className="text-4xl font-bold md:text-6xl">Ocean Transport</h1>

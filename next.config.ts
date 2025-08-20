@@ -16,6 +16,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.maersk.com',
+        port: '',
+        pathname: '/**',
+      }
     ],
   },
   env: {
