@@ -14,11 +14,11 @@ const Header = () => (
           <span className="font-bold">UN shipping line</span>
         </Link>
         <nav className="hidden space-x-6 text-sm font-medium md:flex">
-          <Link href="/services">Services</Link>
-          <Link href="/schedules">Schedules</Link>
+          <Link href="#">Services</Link>
+          <Link href="#">Schedules</Link>
           <Link href="/tracking">Tracking</Link>
-          <Link href="/manage">Manage</Link>
-          <Link href="/company">Company</Link>
+          <Link href="#">Manage</Link>
+          <Link href="#">Company</Link>
         </nav>
       </div>
       <div className="flex flex-1 items-center justify-end space-x-2">
