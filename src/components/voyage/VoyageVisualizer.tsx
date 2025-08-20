@@ -94,10 +94,10 @@ export default function VoyageVisualizer() {
     return (
       <Card className="w-full max-w-md shadow-lg animate-in fade-in zoom-in-95">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-primary flex items-center gap-3">
+          <CardTitle className="flex justify-center">
             <Logo className="w-12 h-12" />
           </CardTitle>
-          <CardDescription>Enter the tracking ID to view your shipment's journey.</CardDescription>
+          <CardDescription className="text-center pt-2">Enter the tracking ID to view your shipment's journey.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
