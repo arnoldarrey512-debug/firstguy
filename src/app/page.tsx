@@ -1,9 +1,170 @@
-import VoyageVisualizer from '@/components/voyage/VoyageVisualizer';
+import Link from 'next/link';
+import { Anchor, ArrowRight, Briefcase, ChevronDown, Globe, Search, Ship, Warehouse } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import Logo from '@/components/voyage/Logo';
 
-export default function Home() {
+const Header = () => (
+  <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <div className="container flex h-14 items-center">
+      <div className="mr-4 flex items-center">
+        <Link href="/" className="mr-6 flex items-center space-x-2">
+          <Logo className="h-6 w-6" />
+          <span className="font-bold">UN shipping line</span>
+        </Link>
+        <nav className="hidden space-x-6 text-sm font-medium md:flex">
+          <Link href="/services">Services</Link>
+          <Link href="/schedules">Schedules</Link>
+          <Link href="/tracking">Tracking</Link>
+          <Link href="/manage">Manage</Link>
+          <Link href="/company">Company</Link>
+        </nav>
+      </div>
+      <div className="flex flex-1 items-center justify-end space-x-2">
+        <Button variant="ghost">Register</Button>
+        <Button>Login</Button>
+      </div>
+    </div>
+  </header>
+);
+
+const Footer = () => (
+  <footer className="w-full border-t bg-background">
+    <div className="container grid grid-cols-2 gap-8 py-12 md:grid-cols-4">
+      <div>
+        <h3 className="mb-2 font-bold">Services</h3>
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li><Link href="#" className="hover:underline">Ocean Transport</Link></li>
+          <li><Link href="#" className="hover:underline">Customs Services</Link></li>
+          <li><Link href="#" className="hover:underline">Inland Transport</Link></li>
+          <li><Link href="#" className="hover:underline">Warehousing</Link></li>
+        </ul>
+      </div>
+      <div>
+        <h3 className="mb-2 font-bold">Resources</h3>
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li><Link href="#" className="hover:underline">News & Advisories</Link></li>
+          <li><Link href="#" className="hover:underline">Insights</Link></li>
+          <li><Link href="#" className="hover:underline">Logistics Explained</Link></li>
+        </ul>
+      </div>
+      <div>
+        <h3 className="mb-2 font-bold">About</h3>
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li><Link href="#" className="hover:underline">About Us</Link></li>
+          <li><Link href="#" className="hover:underline">Careers</Link></li>
+          <li><Link href="#" className="hover:underline">Press</Link></li>
+          <li><Link href="#" className="hover:underline">Sustainability</Link></li>
+        </ul>
+      </div>
+      <div>
+        <h3 className="mb-2 font-bold">Follow Us</h3>
+        <div className="flex space-x-4">
+          <Link href="#" aria-label="LinkedIn"><Briefcase className="h-5 w-5 text-muted-foreground hover:text-foreground" /></Link>
+          <Link href="#" aria-label="Facebook"><Globe className="h-5 w-5 text-muted-foreground hover:text-foreground" /></Link>
+          <Link href="#" aria-label="YouTube"><Ship className="h-5 w-5 text-muted-foreground hover:text-foreground" /></Link>
+          <Link href="#" aria-label="Twitter"><Anchor className="h-5 w-5 text-muted-foreground hover:text-foreground" /></Link>
+        </div>
+      </div>
+    </div>
+    <div className="container border-t py-4 text-center text-sm text-muted-foreground">
+      © A.P. Moller - Maersk
+    </div>
+  </footer>
+);
+
+export default function LandingPage() {
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-center bg-background p-4 sm:p-8 md:p-12">
-      <VoyageVisualizer />
-    </main>
+    <div className="flex min-h-screen flex-col bg-background">
+      <Header />
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="relative h-[60vh] bg-cover bg-center" style={{backgroundImage: "url('https://placehold.co/1920x1080.png')"}} data-ai-hint="ocean container ship">
+          <div className="absolute inset-0 bg-black/50" />
+          <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
+            <h1 className="text-4xl font-bold md:text-6xl">Ocean Transport</h1>
+            <p className="mt-4 max-w-2xl text-lg">
+              As one of the world's largest container shipping companies, we move 12 million containers every year and deliver to every corner of the globe.
+            </p>
+            <div className="mt-8 flex gap-4">
+              <Button size="lg">Find a Price</Button>
+              <Button size="lg" variant="secondary">Find Schedules</Button>
+            </div>
+          </div>
+        </section>
+
+        {/* What is Ocean Freight Section */}
+        <section className="container py-12 md:py-24">
+          <div className="grid gap-8 md:grid-cols-2">
+            <div>
+              <h2 className="text-3xl font-bold">What is Ocean Freight?</h2>
+              <p className="mt-4 text-muted-foreground">
+                Ocean freight shipping is the method of transporting containerised cargo loaded onto vessels by ocean. Over 90% of all the world’s trade is carried by ocean transportation. If you want to ship your freight around the world, ocean transport is the most convenient option.
+              </p>
+              <p className="mt-4 text-muted-foreground">
+                As a general rule, shipments weighing more than 100kg – or consisting of multiple cartons – will be sent by ocean transport. The containers are designed and built for intermodal freight transport. That means they can be used across various transportation modes – from ship to rail to truck – without unloading and reloading the cargo.
+              </p>
+              <Button variant="link" className="mt-4 px-0">View our services <ArrowRight className="ml-2 h-4 w-4" /></Button>
+            </div>
+            <div className="flex items-center justify-center">
+              <img src="https://placehold.co/600x400.png" alt="Ocean freight ship containers" className="rounded-lg shadow-lg" data-ai-hint="shipping containers port" />
+            </div>
+          </div>
+        </section>
+
+        {/* Benefits Section */}
+        <section className="bg-muted py-12 md:py-24">
+          <div className="container">
+            <h2 className="mb-8 text-center text-3xl font-bold">Benefits of Ocean Freight Shipping</h2>
+            <div className="grid gap-8 md:grid-cols-2">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Cost-Effective</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">A cost-effective transport method compared to other modes (e.g. air freight) over long distances.</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Eco-Friendly</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">Produces lower greenhouse gas emissions than other shipping modes, making it a greener choice.</p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="container py-12 md:py-24">
+           <h2 className="mb-8 text-center text-3xl font-bold">Anything you need, we’re here to help</h2>
+          <div className="grid gap-8 md:grid-cols-2">
+            <Card>
+              <CardHeader>
+                <CardTitle>Find Prices</CardTitle>
+                <CardDescription>Ready to ship? Look up rates for new shipments and inland tariffs.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button className="w-full">Find a price</Button>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Sales Enquiries</CardTitle>
+                <CardDescription>Contact us and we will respond within the next two working days.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button variant="outline" className="w-full">Enquire</Button>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+      </main>
+      <Footer />
+    </div>
   );
 }
