@@ -23,17 +23,9 @@ export default function Map({ shipPosition, locations }: MapProps) {
   const map = useRef<MapboxMap | null>(null);
   const shipMarker = useRef<mapboxgl.Marker | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
-  const [routeColor, setRouteColor] = useState('#000000');
+  const [routeColor] = useState('#e53e3e'); // Using a static color for the route
 
   const routeCoordinates = Object.values(locations).map(l => [l.lng, l.lat]);
-
-  useEffect(() => {
-    // Read the computed CSS variable for the destructive color
-    const destructiveColorValue = getComputedStyle(document.documentElement).getPropertyValue('--destructive');
-    if (destructiveColorValue) {
-      setRouteColor(`hsl(${destructiveColorValue.trim()})`);
-    }
-  }, []);
 
   useEffect(() => {
     if (!MAPBOX_TOKEN || map.current || !mapContainer.current) return;
