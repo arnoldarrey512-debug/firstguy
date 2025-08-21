@@ -25,7 +25,17 @@ export default function VoyageVisualizer() {
 
   const startTracking = () => {
     setIsTracking(true);
-    setStartTime(Date.now());
+    
+    // Find the duration to get to the Arabian Sea (the stop before Dubai)
+    let timeToDubaiApproach = 0;
+    for (let i = 0; i < ROUTE.length; i++) {
+        if (ROUTE[i].end.name === "Dubai, UAE") {
+            break;
+        }
+        timeToDubaiApproach += ROUTE[i].duration;
+    }
+    // Set the start time to be in the past, so we start near Dubai
+    setStartTime(Date.now() - timeToDubaiApproach);
   };
 
   const resetTracking = () => {

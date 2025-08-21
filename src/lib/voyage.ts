@@ -5,32 +5,36 @@ const DAY_IN_MS = 1000 * 60 * 60 * 24;
 
 export const LOCATIONS = {
   USA: { name: "Seattle, USA", lng: -122.3321, lat: 47.6062 },
-  PACIFIC_OCEAN_NORTH: { name: "N. Pacific Ocean", lng: 180, lat: 45 },
+  PACIFIC_NORTH_WEST: { name: "N. Pacific", lng: -140, lat: 45 },
+  ALEUTIAN_PASS: { name: "Aleutian Islands", lng: 178, lat: 52 },
   JAPAN_EAST: { name: "East of Japan", lng: 155, lat: 35 },
-  SOUTH_CHINA_SEA_NORTH: { name: "S. China Sea (N)", lng: 120, lat: 20 },
-  STRAIT_OF_MALACCA_NORTH: { name: "Strait of Malacca (N)", lng: 100, lat: 6 },
-  INDIAN_OCEAN_NORTH: { name: "N. Indian Ocean", lng: 85, lat: 10 },
-  ARABIAN_SEA: { name: "Arabian Sea", lng: 65, lat: 20 },
+  SOUTH_CHINA_SEA_NORTH: { name: "S. China Sea", lng: 118, lat: 20 },
+  STRAIT_OF_MALACCA: { name: "Strait of Malacca", lng: 100, lat: 4 },
+  SRI_LANKA_SOUTH: { name: "South of Sri Lanka", lng: 80, lat: 5 },
+  ARABIAN_SEA: { name: "Arabian Sea", lng: 65, lat: 18 },
   DUBAI: { name: "Dubai, UAE", lng: 55.2708, lat: 25.2048 },
   KOREA: { name: "Busan, South Korea", lng: 129.0756, lat: 35.1796 },
 };
 
+// More detailed, over-water route
 export const ROUTE = [
-  // From USA to Dubai (approx 2.5 days)
-  { start: LOCATIONS.USA, end: LOCATIONS.PACIFIC_OCEAN_NORTH, duration: 1.2 * DAY_IN_MS },
-  { start: LOCATIONS.PACIFIC_OCEAN_NORTH, end: LOCATIONS.JAPAN_EAST, duration: 0.8 * DAY_IN_MS },
-  { start: LOCATIONS.JAPAN_EAST, end: LOCATIONS.SOUTH_CHINA_SEA_NORTH, duration: 0.6 * DAY_IN_MS },
-  { start: LOCATIONS.SOUTH_CHINA_SEA_NORTH, end: LOCATIONS.STRAIT_OF_MALACCA_NORTH, duration: 0.5 * DAY_IN_MS },
-  { start: LOCATIONS.STRAIT_OF_MALACCA_NORTH, end: LOCATIONS.INDIAN_OCEAN_NORTH, duration: 0.4 * DAY_IN_MS },
-  { start: LOCATIONS.INDIAN_OCEAN_NORTH, end: LOCATIONS.ARABIAN_SEA, duration: 0.5 * DAY_IN_MS },
-  { start: LOCATIONS.ARABIAN_SEA, end: LOCATIONS.DUBAI, duration: 1 * DAY_IN_MS }, // Total ~5 days to Dubai
+  // From USA to Dubai (approx 5 days)
+  { start: LOCATIONS.USA, end: LOCATIONS.PACIFIC_NORTH_WEST, duration: 1.2 * DAY_IN_MS },
+  { start: LOCATIONS.PACIFIC_NORTH_WEST, end: LOCATIONS.ALEUTIAN_PASS, duration: 0.8 * DAY_IN_MS },
+  { start: LOCATIONS.ALEUTIAN_PASS, end: LOCATIONS.JAPAN_EAST, duration: 0.6 * DAY_IN_MS },
+  { start: LOCATIONS.JAPAN_EAST, end: LOCATIONS.SOUTH_CHINA_SEA_NORTH, duration: 0.5 * DAY_IN_MS },
+  { start: LOCATIONS.SOUTH_CHINA_SEA_NORTH, end: LOCATIONS.STRAIT_OF_MALACCA, duration: 0.4 * DAY_IN_MS },
+  { start: LOCATIONS.STRAIT_OF_MALACCA, end: LOCATIONS.SRI_LANKA_SOUTH, duration: 0.5 * DAY_IN_MS },
+  { start: LOCATIONS.SRI_LANKA_SOUTH, end: LOCATIONS.ARABIAN_SEA, duration: 0.5 * DAY_IN_MS },
+  { start: LOCATIONS.ARABIAN_SEA, end: LOCATIONS.DUBAI, duration: 0.5 * DAY_IN_MS }, // Arrives in Dubai
   
   // From Dubai to Korea (another ~5 days)
-  { start: LOCATIONS.DUBAI, end: LOCATIONS.ARABIAN_SEA, duration: 1 * DAY_IN_MS },
-  { start: LOCATIONS.ARABIAN_SEA, end: LOCATIONS.INDIAN_OCEAN_NORTH, duration: 0.5 * DAY_IN_MS },
-  { start: LOCATIONS.INDIAN_OCEAN_NORTH, end: LOCATIONS.STRAIT_OF_MALACCA_NORTH, duration: 0.4 * DAY_IN_MS },
-  { start: LOCATIONS.STRAIT_OF_MALACCA_NORTH, end: LOCATIONS.SOUTH_CHINA_SEA_NORTH, duration: 0.5 * DAY_IN_MS },
-  { start: LOCATIONS.SOUTH_CHINA_SEA_NORTH, end: LOCATIONS.KOREA, duration: 2.6 * DAY_IN_MS },
+  { start: LOCATIONS.DUBAI, end: LOCATIONS.ARABIAN_SEA, duration: 0.5 * DAY_IN_MS },
+  { start: LOCATIONS.ARABIAN_SEA, end: LOCATIONS.SRI_LANKA_SOUTH, duration: 0.5 * DAY_IN_MS },
+  { start: LOCATIONS.SRI_LANKA_SOUTH, end: LOCATIONS.STRAIT_OF_MALACCA, duration: 0.5 * DAY_IN_MS },
+  { start: LOCATIONS.STRAIT_OF_MALACCA, end: LOCATIONS.SOUTH_CHINA_SEA_NORTH, duration: 0.6 * DAY_IN_MS },
+  { start: LOCATIONS.SOUTH_CHINA_SEA_NORTH, end: LOCATIONS.JAPAN_EAST, duration: 1 * DAY_IN_MS },
+  { start: LOCATIONS.JAPAN_EAST, end: LOCATIONS.KOREA, duration: 1.9 * DAY_IN_MS },
 ];
 
 export function lerp(start: number, end: number, t: number): number {
