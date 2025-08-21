@@ -6,11 +6,19 @@ import mapboxgl, { LngLatLike, Map as MapboxMap } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Ship, Anchor, TriangleAlert } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import { ROUTE, LOCATIONS } from '@/lib/voyage';
 import ReactDOMServer from 'react-dom/server';
+
+type Location = { name: string; lng: number; lat: number };
+
+type Route = {
+    start: Location,
+    end: Location,
+    duration: number
+}[];
 
 type MapProps = {
   shipPosition: { x: number; y: number; angle: number } | null;
+  route: Route;
 };
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
@@ -18,14 +26,24 @@ if (MAPBOX_TOKEN) {
   mapboxgl.accessToken = MAPBOX_TOKEN;
 }
 
-export default function Map({ shipPosition }: MapProps) {
+export default function Map({ shipPosition, route }: MapProps) {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const map = useRef<MapboxMap | null>(null);
   const shipMarker = useRef<mapboxgl.Marker | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
-  const [routeColor] = useState('#0077c2'); // A nice blue for the route
+  const [routeColor] = useState('#0077c2');
 
-  const routeCoordinates = ROUTE.map(segment => [segment.start.lng, segment.start.lat]).concat([[ROUTE[ROUTE.length-1].end.lng, ROUTE[ROUTE.length-1].end.lat]]);
+  const allLocations: Location[] = [];
+    route.forEach(segment => {
+        if (!allLocations.find(l => l.name === segment.start.name)) {
+            allLocations.push(segment.start);
+        }
+        if (!allLocations.find(l => l.name === segment.end.name)) {
+            allLocations.push(segment.end);
+        }
+    });
+
+  const routeCoordinates = route.map(segment => [segment.start.lng, segment.start.lat]).concat([[route[route.length-1].end.lng, route[route.length-1].end.lat]]);
 
   useEffect(() => {
     if (!MAPBOX_TOKEN || map.current || !mapContainer.current) return;
@@ -33,7 +51,7 @@ export default function Map({ shipPosition }: MapProps) {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v12',
-      center: [80, 25], // Centered on the Indian Ocean
+      center: [80, 25], 
       zoom: 3,
       interactive: true,
     });
@@ -59,9 +77,7 @@ export default function Map({ shipPosition }: MapProps) {
   }, []);
 
   useEffect(() => {
-    if (!mapLoaded || !map.current) return;
-    
-    const visibleLocations = [LOCATIONS.USA, LOCATIONS.DUBAI, LOCATIONS.KOREA];
+    if (!mapLoaded || !map.current || !route) return;
 
     // Add route line
     if (map.current.getSource('route')) {
@@ -103,7 +119,10 @@ export default function Map({ shipPosition }: MapProps) {
     }
 
     // Add location markers
-    visibleLocations.forEach(loc => {
+    // First remove old markers
+     document.querySelectorAll('.mapboxgl-marker').forEach(marker => marker.remove());
+
+    allLocations.forEach(loc => {
       const el = document.createElement('div');
       el.innerHTML = ReactDOMServer.renderToString(
         <div className="relative flex flex-col items-center">
@@ -117,7 +136,7 @@ export default function Map({ shipPosition }: MapProps) {
         .addTo(map.current!);
     });
 
-  }, [mapLoaded, routeCoordinates, routeColor]);
+  }, [mapLoaded, routeCoordinates, routeColor, allLocations, route]);
 
   useEffect(() => {
     if (!mapLoaded || !map.current || !shipPosition) return;
@@ -132,7 +151,7 @@ export default function Map({ shipPosition }: MapProps) {
       shipMarker.current = new mapboxgl.Marker(shipEl)
         .setLngLat(coordinates)
         .addTo(map.current);
-      // Only fly to the ship's position on the first update
+      
       map.current.flyTo({
         center: coordinates,
         zoom: 5,

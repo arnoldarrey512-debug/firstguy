@@ -1,28 +1,53 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Label } from '@/components/ui/label';
 import { Ship, CheckCircle, Anchor, CircleDot } from 'lucide-react';
-import { ROUTE } from '@/lib/voyage';
 import { cn } from '@/lib/utils';
 import { Separator } from '../ui/separator';
+
+
+type Location = { name: string; lng: number; lat: number };
+
+type Route = {
+    start: Location,
+    end: Location,
+    duration: number
+}[];
 
 type TrackingStatusProps = {
   trackingId: string;
   statusText: string;
   nextDestination: string;
   progress: number;
+  route: Route;
 };
 
-// Create a unique list of stops from the route
-const voyagePlan = [ROUTE[0].start.name];
-ROUTE.forEach(segment => {
-  if (!voyagePlan.includes(segment.end.name)) {
-    voyagePlan.push(segment.end.name);
+export default function TrackingStatus({ trackingId, statusText, nextDestination, progress, route }: TrackingStatusProps) {
+  if (!route || route.length === 0) {
+      return (
+        <Card className="w-full shadow-lg">
+            <CardHeader>
+                <CardTitle>Loading Shipment Data...</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <p>Please wait while we fetch the voyage plan.</p>
+            </CardContent>
+        </Card>
+      )
   }
-});
+  
+  const voyagePlan: string[] = [];
+    route.forEach(segment => {
+        if (!voyagePlan.includes(segment.start.name)) {
+            voyagePlan.push(segment.start.name);
+        }
+        if (!voyagePlan.includes(segment.end.name)) {
+            voyagePlan.push(segment.end.name);
+        }
+    });
 
 
-export default function TrackingStatus({ trackingId, statusText, nextDestination, progress }: TrackingStatusProps) {
   const isComplete = nextDestination === 'Journey complete';
   
   const currentStopName = isComplete 
@@ -64,14 +89,16 @@ export default function TrackingStatus({ trackingId, statusText, nextDestination
                 <li key={stop} className="flex items-center gap-4">
                   <div>
                     {isStopCompleted && <CheckCircle className="w-6 h-6 text-green-500" />}
-                    {isStopCurrent && <CircleDot className="w-6 h-6 text-accent animate-pulse" />}
+                    {isStopCurrent && !isComplete && <CircleDot className="w-6 h-6 text-accent animate-pulse" />}
+                    {isStopCurrent && isComplete && <CheckCircle className="w-6 h-6 text-green-500" />}
                     {isStopUpcoming && <Anchor className="w-6 h-6 text-muted-foreground" />}
                   </div>
                   <div className="flex-1">
                     <p className={cn(
                       "font-medium",
                       isStopCompleted && "text-muted-foreground line-through",
-                      isStopCurrent && "text-accent",
+                      isStopCurrent && !isComplete && "text-accent",
+                      isStopCurrent && isComplete && "text-green-500",
                       isStopUpcoming && "text-muted-foreground"
                     )}>{stop}</p>
                      {isStopCurrent && !isComplete && (
