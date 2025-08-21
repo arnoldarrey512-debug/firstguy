@@ -1,8 +1,9 @@
 import Link from 'next/link';
-import { ArrowRight, Briefcase, Globe, Ship, Warehouse, Anchor } from 'lucide-react';
+import { ArrowRight, Briefcase, Globe, Ship, Warehouse, Anchor, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Logo from '@/components/voyage/Logo';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 const Header = () => (
   <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -21,8 +22,31 @@ const Header = () => (
         </nav>
       </div>
       <div className="flex flex-1 items-center justify-end space-x-2">
-        <Button variant="ghost">Register</Button>
-        <Button>Login</Button>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" className="md:hidden">
+              <Menu className="h-6 w-6" />
+              <span className="sr-only">Toggle navigation menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left">
+            <nav className="grid gap-6 text-lg font-medium">
+              <Link href="/" className="flex items-center gap-2 text-lg font-semibold">
+                <Logo className="h-10 w-10" />
+                <span>UN shipping line</span>
+              </Link>
+              <Link href="#">Services</Link>
+              <Link href="#">Schedules</Link>
+              <Link href="/tracking">Tracking</Link>
+              <Link href="#">Manage</Link>
+              <Link href="#">Company</Link>
+            </nav>
+          </SheetContent>
+        </Sheet>
+        <div className="hidden md:flex items-center space-x-2">
+          <Button variant="ghost">Register</Button>
+          <Button>Login</Button>
+        </div>
       </div>
     </div>
   </header>
@@ -94,8 +118,8 @@ export default function LandingPage() {
         </section>
 
         {/* What is Ocean Freight Section */}
-        <section className="container py-16 md:py-24">
-          <div className="mx-auto max-w-4xl text-left pl-4">
+        <section className="py-16 md:py-24">
+          <div className="container mx-auto max-w-4xl text-left pl-4">
             <h2 className="text-3xl font-bold tracking-tight">What is Ocean Freight?</h2>
             <p className="mt-4 text-lg text-muted-foreground">
               Ocean freight shipping is the method of transporting containerised cargo loaded onto vessels by ocean. Over 90% of all the world’s trade is carried by ocean transportation. If you want to ship your freight around the world, ocean transport is the most convenient option.
