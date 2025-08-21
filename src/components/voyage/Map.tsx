@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef, useState } from 'react';
@@ -5,12 +6,11 @@ import mapboxgl, { LngLatLike, Map as MapboxMap } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Ship, Anchor, TriangleAlert } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import type { LOCATIONS } from '@/lib/voyage';
+import { ROUTE, LOCATIONS } from '@/lib/voyage';
 import ReactDOMServer from 'react-dom/server';
 
 type MapProps = {
   shipPosition: { x: number; y: number; angle: number } | null;
-  locations: typeof LOCATIONS;
 };
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
@@ -18,25 +18,35 @@ if (MAPBOX_TOKEN) {
   mapboxgl.accessToken = MAPBOX_TOKEN;
 }
 
-export default function Map({ shipPosition, locations }: MapProps) {
+export default function Map({ shipPosition }: MapProps) {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const map = useRef<MapboxMap | null>(null);
   const shipMarker = useRef<mapboxgl.Marker | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
-  const [routeColor] = useState('#e53e3e'); // Using a static color for the route
+  const [routeColor] = useState('#0077c2'); // A nice blue for the route
 
-  const routeCoordinates = Object.values(locations).map(l => [l.lng, l.lat]);
+  const routeCoordinates = ROUTE.map(segment => [segment.start.lng, segment.start.lat]).concat([[ROUTE[ROUTE.length-1].end.lng, ROUTE[ROUTE.length-1].end.lat]]);
 
   useEffect(() => {
     if (!MAPBOX_TOKEN || map.current || !mapContainer.current) return;
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/outdoors-v12',
-      center: [40, 35], // Centered between locations
-      zoom: 2,
+      style: 'mapbox://styles/mapbox/streets-v12',
+      center: [80, 25], // Centered on the Indian Ocean
+      zoom: 3,
       interactive: true,
     });
+    
+    map.current.addControl(new mapboxgl.NavigationControl());
+    map.current.addControl(new mapboxgl.FullscreenControl());
+    map.current.addControl(new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: true,
+      showUserHeading: true
+    }));
 
     map.current.on('load', () => {
       setMapLoaded(true);
@@ -51,19 +61,20 @@ export default function Map({ shipPosition, locations }: MapProps) {
   useEffect(() => {
     if (!mapLoaded || !map.current) return;
     
-    const visibleLocations = [locations.USA, locations.DUBAI, locations.KOREA];
-    const routeCoordinates = [
-        [locations.USA.lng, locations.USA.lat],
-        [locations.PACIFIC_OCEAN.lng, locations.PACIFIC_OCEAN.lat],
-        [locations.ARABIAN_SEA.lng, locations.ARABIAN_SEA.lat],
-        [locations.DUBAI.lng, locations.DUBAI.lat],
-        [locations.KOREA.lng, locations.KOREA.lat]
-    ];
-
+    const visibleLocations = [LOCATIONS.USA, LOCATIONS.DUBAI, LOCATIONS.KOREA];
 
     // Add route line
-    if (!map.current.getSource('route')) {
-      map.current.addSource('route', {
+    if (map.current.getSource('route')) {
+      (map.current.getSource('route') as mapboxgl.GeoJSONSource).setData({
+          type: 'Feature',
+          properties: {},
+          geometry: {
+            type: 'LineString',
+            coordinates: routeCoordinates,
+          },
+        });
+    } else {
+       map.current.addSource('route', {
         type: 'geojson',
         data: {
           type: 'Feature',
@@ -106,7 +117,7 @@ export default function Map({ shipPosition, locations }: MapProps) {
         .addTo(map.current!);
     });
 
-  }, [mapLoaded, locations, routeColor]);
+  }, [mapLoaded, routeCoordinates, routeColor]);
 
   useEffect(() => {
     if (!mapLoaded || !map.current || !shipPosition) return;

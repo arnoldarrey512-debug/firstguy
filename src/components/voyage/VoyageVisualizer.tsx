@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -56,7 +57,8 @@ export default function VoyageVisualizer() {
 
     const currentSegment = ROUTE[segmentIndex];
     if (!currentSegment) {
-      setStatusText(`Shipment has arrived at ${LOCATIONS.KOREA.name}.`);
+      const finalDestination = ROUTE[ROUTE.length - 1]?.end.name || 'final destination';
+      setStatusText(`Shipment has arrived at ${finalDestination}.`);
       setNextDestination('Journey complete');
       setShipPosition(calculateShipPosition(ROUTE.length, 1));
       return;
@@ -126,7 +128,7 @@ export default function VoyageVisualizer() {
         </h1>
         <Button variant="outline" onClick={resetTracking}>Track Another Shipment</Button>
       </div>
-      <Map shipPosition={shipPosition} locations={LOCATIONS} />
+      <Map shipPosition={shipPosition} />
       <TrackingStatus 
         trackingId={TRACKING_ID}
         statusText={statusText}

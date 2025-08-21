@@ -1,18 +1,34 @@
+
 export const TRACKING_ID = "US-DXB-KR-123";
 
 export const LOCATIONS = {
   USA: { name: "Seattle, USA", lng: -122.3321, lat: 47.6062 },
-  PACIFIC_OCEAN: { name: "Pacific Ocean", lng: 180, lat: 25 },
+  PACIFIC_OCEAN_NORTH: { name: "North Pacific Ocean", lng: -150, lat: 40 },
+  WEST_PACIFIC: { name: "West Pacific", lng: 145, lat: 20 },
+  SOUTH_CHINA_SEA: { name: "South China Sea", lng: 110, lat: 10 },
+  STRAIT_OF_MALACCA: { name: "Strait of Malacca", lng: 100, lat: 5 },
+  INDIAN_OCEAN: { name: "Indian Ocean", lng: 80, lat: 10 },
   ARABIAN_SEA: { name: "Arabian Sea", lng: 65, lat: 20 },
   DUBAI: { name: "Dubai, UAE", lng: 55.2708, lat: 25.2048 },
   KOREA: { name: "Busan, South Korea", lng: 129.0756, lat: 35.1796 },
 };
 
 export const ROUTE = [
-  { start: LOCATIONS.USA, end: LOCATIONS.PACIFIC_OCEAN, duration: 25000 }, // 25 seconds
-  { start: LOCATIONS.PACIFIC_OCEAN, end: LOCATIONS.ARABIAN_SEA, duration: 25000 }, // 25 seconds
-  { start: LOCATIONS.ARABIAN_SEA, end: LOCATIONS.DUBAI, duration: 10000 }, // 10 seconds
-  { start: LOCATIONS.DUBAI, end: LOCATIONS.KOREA, duration: 20000 }, // 20 seconds
+  // From USA to Dubai
+  { start: LOCATIONS.USA, end: LOCATIONS.PACIFIC_OCEAN_NORTH, duration: 10000 },
+  { start: LOCATIONS.PACIFIC_OCEAN_NORTH, end: LOCATIONS.WEST_PACIFIC, duration: 15000 },
+  { start: LOCATIONS.WEST_PACIFIC, end: LOCATIONS.SOUTH_CHINA_SEA, duration: 8000 },
+  { start: LOCATIONS.SOUTH_CHINA_SEA, end: LOCATIONS.STRAIT_OF_MALACCA, duration: 5000 },
+  { start: LOCATIONS.STRAIT_OF_MALACCA, end: LOCATIONS.INDIAN_OCEAN, duration: 7000 },
+  { start: LOCATIONS.INDIAN_OCEAN, end: LOCATIONS.ARABIAN_SEA, duration: 5000 },
+  { start: LOCATIONS.ARABIAN_SEA, end: LOCATIONS.DUBAI, duration: 3000 },
+  
+  // From Dubai to Korea
+  { start: LOCATIONS.DUBAI, end: LOCATIONS.ARABIAN_SEA, duration: 3000 },
+  { start: LOCATIONS.ARABIAN_SEA, end: LOCATIONS.INDIAN_OCEAN, duration: 5000 },
+  { start: LOCATIONS.INDIAN_OCEAN, end: LOCATIONS.STRAIT_OF_MALACCA, duration: 7000 },
+  { start: LOCATIONS.STRAIT_OF_MALACCA, end: LOCATIONS.SOUTH_CHINA_SEA, duration: 5000 },
+  { start: LOCATIONS.SOUTH_CHINA_SEA, end: LOCATIONS.KOREA, duration: 10000 },
 ];
 
 export function lerp(start: number, end: number, t: number): number {
