@@ -94,9 +94,9 @@ export default function LandingPage() {
         </section>
 
         {/* What is Ocean Freight Section */}
-        <section className="container py-16 md:py-24">
-          <div className="grid items-center gap-12 md:grid-cols-2">
-            <div>
+        <section className="py-16 md:py-24">
+          <div className="container">
+            <div className="mx-auto max-w-4xl text-center">
               <h2 className="text-3xl font-bold tracking-tight">What is Ocean Freight?</h2>
               <p className="mt-4 text-lg text-muted-foreground">
                 Ocean freight shipping is the method of transporting containerised cargo loaded onto vessels by ocean. Over 90% of all the world’s trade is carried by ocean transportation. If you want to ship your freight around the world, ocean transport is the most convenient option.
@@ -105,9 +105,9 @@ export default function LandingPage() {
                 As a general rule, shipments weighing more than 100kg – or consisting of multiple cartons – will be sent by ocean transport. The containers are designed and built for intermodal freight transport. That means they can be used across various transportation modes – from ship to rail to truck – without unloading and reloading the cargo.
               </p>
               <Button variant="link" className="mt-6 px-0 text-base">View our services <ArrowRight className="ml-2 h-4 w-4" /></Button>
-            </div>
-            <div className="flex items-center justify-center">
-              <img src="https://www.maersk.com/~/media_sc9/maersk/solutions/transportation-services/ocean-transport/images/ocean-freight-ship-containers_720x405.jpg?w=1325&hash=464BB5C5D85515F125C16BA8705AADC0" alt="Ocean freight ship containers" className="rounded-lg shadow-2xl" data-ai-hint="container ship" />
+              <div className="mt-12 flex items-center justify-center">
+                <img src="https://www.maersk.com/~/media_sc9/maersk/solutions/transportation-services/ocean-transport/images/ocean-freight-ship-containers_720x405.jpg?w=1325&hash=464BB5C5D85515F125C16BA8705AADC0" alt="Ocean freight ship containers" className="rounded-lg shadow-2xl" data-ai-hint="container ship" />
+              </div>
             </div>
           </div>
         </section>
