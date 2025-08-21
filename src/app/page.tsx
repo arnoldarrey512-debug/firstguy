@@ -11,7 +11,7 @@ const Header = () => (
       <div className="mr-4 flex items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2">
           <Logo className="h-10 w-10" />
-          <span className="font-bold">UN shipping line</span>
+          <span className="hidden font-bold md:inline">UN shipping line</span>
         </Link>
         <nav className="hidden space-x-6 text-sm font-medium md:flex">
           <Link href="#">Services</Link>
@@ -36,7 +36,7 @@ const Header = () => (
             <nav className="grid gap-6 text-lg font-medium">
               <Link href="/" className="flex items-center gap-2 text-lg font-semibold">
                 <Logo className="h-10 w-10" />
-                <span>UN shipping line</span>
+                <span className="sr-only">UN shipping line</span>
               </Link>
               <Link href="#">Services</Link>
               <Link href="#">Schedules</Link>
