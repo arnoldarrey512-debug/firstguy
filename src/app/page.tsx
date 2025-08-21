@@ -9,7 +9,7 @@ const Header = () => (
     <div className="container flex h-14 items-center">
       <div className="mr-4 flex items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2">
-          <Logo className="h-8 w-8" />
+          <Logo className="h-10 w-10" />
           <span className="font-bold">UN shipping line</span>
         </Link>
         <nav className="hidden space-x-6 text-sm font-medium md:flex">
@@ -107,7 +107,7 @@ export default function LandingPage() {
               <Button variant="link" className="mt-6 px-0 text-base">View our services <ArrowRight className="ml-2 h-4 w-4" /></Button>
             </div>
             <div className="flex items-center justify-center">
-              <img src="https://placehold.co/600x400.png" alt="Ocean freight ship containers" className="rounded-lg shadow-2xl" data-ai-hint="shipping containers port" />
+              <img src="https://www.maersk.com/~/media_sc9/maersk/solutions/transportation-services/ocean-transport/images/ocean-freight-ship-containers_720x405.jpg?w=1325&hash=464BB5C5D85515F125C16BA8705AADC0" alt="Ocean freight ship containers" className="rounded-lg shadow-2xl" data-ai-hint="container ship" />
             </div>
           </div>
         </section>
