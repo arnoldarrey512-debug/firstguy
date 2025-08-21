@@ -121,7 +121,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <div className="container">
+        <div className="container px-4 md:px-6">
           {/* What is Ocean Freight Section */}
           <section className="py-16 md:py-24">
             <div className="grid gap-12 md:grid-cols-2 md:items-center">
