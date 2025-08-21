@@ -140,9 +140,11 @@ export default function LandingPage() {
               </div>
             </div>
           </section>
+        </div>
 
-          {/* Benefits Section */}
-          <section className="bg-muted -mx-4 px-4 py-16 md:py-24 md:-mx-8 md:px-8 rounded-lg">
+        {/* Benefits Section */}
+        <section className="bg-muted py-16 md:py-24">
+            <div className="container">
               <h2 className="mb-12 text-center text-3xl font-bold tracking-tight">Benefits of Ocean Freight Shipping</h2>
               <div className="grid gap-8 md:grid-cols-2">
                 <Card className="shadow-lg">
@@ -162,10 +164,12 @@ export default function LandingPage() {
                   </CardContent>
                 </Card>
               </div>
-          </section>
+            </div>
+        </section>
 
-          {/* CTA Section */}
-          <section className="py-16 md:py-24">
+        {/* CTA Section */}
+        <section className="py-16 md:py-24">
+            <div className="container">
              <h2 className="mb-8 text-center text-3xl font-bold tracking-tight">Anything you need, we’re here to help</h2>
             <div className="mx-auto grid max-w-4xl gap-8 md:grid-cols-2">
               <Card className="text-center">
@@ -187,8 +191,8 @@ export default function LandingPage() {
                 </CardContent>
               </Card>
             </div>
-          </section>
-        </div>
+           </div>
+        </section>
 
       </main>
       <Footer />
