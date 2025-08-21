@@ -14,11 +14,11 @@ const Header = () => (
           <span className="hidden font-bold md:inline">UN shipping line</span>
         </Link>
         <nav className="hidden space-x-6 text-sm font-medium md:flex">
-          <Link href="#">Services</Link>
-          <Link href="#">Schedules</Link>
+          <Link href="/login">Services</Link>
+          <Link href="/login">Schedules</Link>
           <Link href="/tracking">Tracking</Link>
-          <Link href="#">Manage</Link>
-          <Link href="#">Company</Link>
+          <Link href="/login">Manage</Link>
+          <Link href="/login">Company</Link>
         </nav>
       </div>
       <div className="flex flex-1 items-center justify-end space-x-2">
@@ -38,17 +38,18 @@ const Header = () => (
                 <Logo className="h-10 w-10" />
                 <span className="sr-only">UN shipping line</span>
               </Link>
-              <Link href="#">Services</Link>
-              <Link href="#">Schedules</Link>
+              <Link href="/login">Services</Link>
+              <Link href="/login">Schedules</Link>
               <Link href="/tracking">Tracking</Link>
-              <Link href="#">Manage</Link>
-              <Link href="#">Company</Link>
+              <Link href="/login">Manage</Link>
+              <Link href="/login">Company</Link>
             </nav>
           </SheetContent>
         </Sheet>
         <div className="hidden md:flex items-center space-x-2">
-          <Button variant="ghost">Register</Button>
-          <Button>Login</Button>
+          <Button asChild>
+            <Link href="/login">Login</Link>
+          </Button>
         </div>
       </div>
     </div>
@@ -61,27 +62,27 @@ const Footer = () => (
       <div>
         <h3 className="mb-2 font-bold">Services</h3>
         <ul className="space-y-2 text-sm text-muted-foreground">
-          <li><Link href="#" className="hover:underline">Ocean Transport</Link></li>
-          <li><Link href="#" className="hover:underline">Customs Services</Link></li>
-          <li><Link href="#" className="hover:underline">Inland Transport</Link></li>
-          <li><Link href="#" className="hover:underline">Warehousing</Link></li>
+          <li><Link href="/login" className="hover:underline">Ocean Transport</Link></li>
+          <li><Link href="/login" className="hover:underline">Customs Services</Link></li>
+          <li><Link href="/login" className="hover:underline">Inland Transport</Link></li>
+          <li><Link href="/login" className="hover:underline">Warehousing</Link></li>
         </ul>
       </div>
       <div>
         <h3 className="mb-2 font-bold">Resources</h3>
         <ul className="space-y-2 text-sm text-muted-foreground">
-          <li><Link href="#" className="hover:underline">News & Advisories</Link></li>
-          <li><Link href="#" className="hover:underline">Insights</Link></li>
-          <li><Link href="#" className="hover:underline">Logistics Explained</Link></li>
+          <li><Link href="/login" className="hover:underline">News & Advisories</Link></li>
+          <li><Link href="/login" className="hover:underline">Insights</Link></li>
+          <li><Link href="/login" className="hover:underline">Logistics Explained</Link></li>
         </ul>
       </div>
       <div>
         <h3 className="mb-2 font-bold">About</h3>
         <ul className="space-y-2 text-sm text-muted-foreground">
-          <li><Link href="#" className="hover:underline">About Us</Link></li>
-          <li><Link href="#" className="hover:underline">Careers</Link></li>
-          <li><Link href="#" className="hover:underline">Press</Link></li>
-          <li><Link href="#" className="hover:underline">Sustainability</Link></li>
+          <li><Link href="/login" className="hover:underline">About Us</Link></li>
+          <li><Link href="/login" className="hover:underline">Careers</Link></li>
+          <li><Link href="/login" className="hover:underline">Press</Link></li>
+          <li><Link href="/login" className="hover:underline">Sustainability</Link></li>
         </ul>
       </div>
       <div>
@@ -114,8 +115,8 @@ export default function LandingPage() {
               As one of the world's largest container shipping companies, we move 12 million containers every year and deliver to every corner of the globe.
             </p>
             <div className="mt-8 flex gap-4">
-              <Button size="lg">Find a Price</Button>
-              <Button size="lg" variant="secondary">Find Schedules</Button>
+              <Button size="lg" asChild><Link href="/login">Find a Price</Link></Button>
+              <Button size="lg" variant="secondary" asChild><Link href="/login">Find Schedules</Link></Button>
             </div>
           </div>
         </section>
@@ -132,7 +133,7 @@ export default function LandingPage() {
                 <p className="mt-4 text-lg text-muted-foreground">
                   As a general rule, shipments weighing more than 100kg – or consisting of multiple cartons – will be sent by ocean transport. The containers are designed and built for intermodal freight transport. That means they can be used across various transportation modes – from ship to rail to truck – without unloading and reloading the cargo.
                 </p>
-                <Button variant="link" className="mt-6 px-0 text-base">View our services <ArrowRight className="ml-2 h-4 w-4" /></Button>
+                <Button variant="link" className="mt-6 px-0 text-base" asChild><Link href="/login">View our services <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
               </div>
               <div className="flex items-center justify-center">
                 <img src="https://www.maersk.com/~/media_sc9/maersk/solutions/transportation-services/ocean-transport/images/ocean-freight-ship-containers_720x405.jpg?w=1325&hash=464BB5C5D85515F125C16BA8705AADC0" alt="Ocean freight ship containers" className="rounded-lg shadow-2xl" data-ai-hint="container ship" />
@@ -173,7 +174,7 @@ export default function LandingPage() {
                   <CardDescription>Ready to ship? Look up rates for new shipments and inland tariffs.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Button className="w-full">Find a price</Button>
+                  <Button className="w-full" asChild><Link href="/login">Find a price</Link></Button>
                 </CardContent>
               </Card>
               <Card className="text-center">
@@ -182,7 +183,7 @@ export default function LandingPage() {
                   <CardDescription>Contact us and we will respond within the next two working days.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Button variant="outline" className="w-full">Enquire</Button>
+                  <Button variant="outline" className="w-full" asChild><Link href="/login">Enquire</Link></Button>
                 </CardContent>
               </Card>
             </div>
