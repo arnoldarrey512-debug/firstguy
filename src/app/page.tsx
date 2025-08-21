@@ -58,45 +58,47 @@ const Header = () => (
 
 const Footer = () => (
   <footer className="w-full border-t bg-background">
-    <div className="container grid grid-cols-2 gap-8 py-12 md:grid-cols-4">
-      <div>
-        <h3 className="mb-2 font-bold">Services</h3>
-        <ul className="space-y-2 text-sm text-muted-foreground">
-          <li><Link href="/login" className="hover:underline">Ocean Transport</Link></li>
-          <li><Link href="/login" className="hover:underline">Customs Services</Link></li>
-          <li><Link href="/login" className="hover:underline">Inland Transport</Link></li>
-          <li><Link href="/login" className="hover:underline">Warehousing</Link></li>
-        </ul>
-      </div>
-      <div>
-        <h3 className="mb-2 font-bold">Resources</h3>
-        <ul className="space-y-2 text-sm text-muted-foreground">
-          <li><Link href="/login" className="hover:underline">News & Advisories</Link></li>
-          <li><Link href="/login" className="hover:underline">Insights</Link></li>
-          <li><Link href="/login" className="hover:underline">Logistics Explained</Link></li>
-        </ul>
-      </div>
-      <div>
-        <h3 className="mb-2 font-bold">About</h3>
-        <ul className="space-y-2 text-sm text-muted-foreground">
-          <li><Link href="/login" className="hover:underline">About Us</Link></li>
-          <li><Link href="/login" className="hover:underline">Careers</Link></li>
-          <li><Link href="/login" className="hover:underline">Press</Link></li>
-          <li><Link href="/login" className="hover:underline">Sustainability</Link></li>
-        </ul>
-      </div>
-      <div>
-        <h3 className="mb-2 font-bold">Follow Us</h3>
-        <div className="flex space-x-4">
-          <Link href="#" aria-label="LinkedIn"><Briefcase className="h-5 w-5 text-muted-foreground hover:text-foreground" /></Link>
-          <Link href="#" aria-label="Facebook"><Globe className="h-5 w-5 text-muted-foreground hover:text-foreground" /></Link>
-          <Link href="#" aria-label="YouTube"><Ship className="h-5 w-5 text-muted-foreground hover:text-foreground" /></Link>
-          <Link href="#" aria-label="Twitter"><Anchor className="h-5 w-5 text-muted-foreground hover:text-foreground" /></Link>
+    <div className="container">
+      <div className="grid grid-cols-2 gap-8 py-12 md:grid-cols-4">
+        <div>
+          <h3 className="mb-2 font-bold">Services</h3>
+          <ul className="space-y-2 text-sm text-muted-foreground">
+            <li><Link href="/login" className="hover:underline">Ocean Transport</Link></li>
+            <li><Link href="/login" className="hover:underline">Customs Services</Link></li>
+            <li><Link href="/login" className="hover:underline">Inland Transport</Link></li>
+            <li><Link href="/login" className="hover:underline">Warehousing</Link></li>
+          </ul>
+        </div>
+        <div>
+          <h3 className="mb-2 font-bold">Resources</h3>
+          <ul className="space-y-2 text-sm text-muted-foreground">
+            <li><Link href="/login" className="hover:underline">News & Advisories</Link></li>
+            <li><Link href="/login" className="hover:underline">Insights</Link></li>
+            <li><Link href="/login" className="hover:underline">Logistics Explained</Link></li>
+          </ul>
+        </div>
+        <div>
+          <h3 className="mb-2 font-bold">About</h3>
+          <ul className="space-y-2 text-sm text-muted-foreground">
+            <li><Link href="/login" className="hover:underline">About Us</Link></li>
+            <li><Link href="/login" className="hover:underline">Careers</Link></li>
+            <li><Link href="/login" className="hover:underline">Press</Link></li>
+            <li><Link href="/login" className="hover:underline">Sustainability</Link></li>
+          </ul>
+        </div>
+        <div>
+          <h3 className="mb-2 font-bold">Follow Us</h3>
+          <div className="flex space-x-4">
+            <Link href="#" aria-label="LinkedIn"><Briefcase className="h-5 w-5 text-muted-foreground hover:text-foreground" /></Link>
+            <Link href="#" aria-label="Facebook"><Globe className="h-5 w-5 text-muted-foreground hover:text-foreground" /></Link>
+            <Link href="#" aria-label="YouTube"><Ship className="h-5 w-5 text-muted-foreground hover:text-foreground" /></Link>
+            <Link href="#" aria-label="Twitter"><Anchor className="h-5 w-5 text-muted-foreground hover:text-foreground" /></Link>
+          </div>
         </div>
       </div>
-    </div>
-    <div className="container border-t py-4 text-center text-sm text-muted-foreground">
-      © A.P. Moller - Maersk
+      <div className="border-t py-4 text-center text-sm text-muted-foreground">
+        © A.P. Moller - Maersk
+      </div>
     </div>
   </footer>
 );
@@ -121,9 +123,9 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <div className="container px-4 md:px-6">
-          {/* What is Ocean Freight Section */}
-          <section className="py-16 md:py-24">
+        {/* What is Ocean Freight Section */}
+        <section className="py-16 md:py-24">
+          <div className="container px-4 md:px-6">
             <div className="grid gap-12 md:grid-cols-2 md:items-center">
               <div className="text-left">
                 <h2 className="text-3xl font-bold tracking-tight">What is Ocean Freight?</h2>
@@ -139,12 +141,12 @@ export default function LandingPage() {
                 <img src="https://www.maersk.com/~/media_sc9/maersk/solutions/transportation-services/ocean-transport/images/ocean-freight-ship-containers_720x405.jpg?w=1325&hash=464BB5C5D85515F125C16BA8705AADC0" alt="Ocean freight ship containers" className="rounded-lg shadow-2xl" data-ai-hint="container ship" />
               </div>
             </div>
-          </section>
-        </div>
+          </div>
+        </section>
 
         {/* Benefits Section */}
         <section className="bg-muted py-16 md:py-24">
-            <div className="container">
+            <div className="container px-4 md:px-6">
               <h2 className="mb-12 text-center text-3xl font-bold tracking-tight">Benefits of Ocean Freight Shipping</h2>
               <div className="grid gap-8 md:grid-cols-2">
                 <Card className="shadow-lg">
@@ -169,7 +171,7 @@ export default function LandingPage() {
 
         {/* CTA Section */}
         <section className="py-16 md:py-24">
-            <div className="container">
+            <div className="container px-4 md:px-6">
              <h2 className="mb-8 text-center text-3xl font-bold tracking-tight">Anything you need, we’re here to help</h2>
             <div className="mx-auto grid max-w-4xl gap-8 md:grid-cols-2">
               <Card className="text-center">
