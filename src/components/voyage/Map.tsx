@@ -132,21 +132,20 @@ export default function Map({ shipPosition }: MapProps) {
       shipMarker.current = new mapboxgl.Marker(shipEl)
         .setLngLat(coordinates)
         .addTo(map.current);
+      // Only fly to the ship's position on the first update
+      map.current.flyTo({
+        center: coordinates,
+        zoom: 5,
+        speed: 0.5,
+        curve: 1,
+        easing(t) {
+          return t;
+        },
+      });
     } else {
       shipMarker.current.setLngLat(coordinates);
       shipMarker.current.getElement().style.transform = `rotate(${shipPosition.angle}deg)`;
     }
-
-    // Fly to the ship's position when it updates
-    map.current.flyTo({
-      center: coordinates,
-      zoom: 5,
-      speed: 0.5,
-      curve: 1,
-      easing(t) {
-        return t;
-      },
-    });
 
   }, [mapLoaded, shipPosition]);
 
