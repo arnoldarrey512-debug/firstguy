@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 
 import Map from './Map';
 import TrackingStatus from './TrackingStatus';
-import { TRACKING_ID, LOCATIONS, ROUTE, calculateShipPosition } from '@/lib/voyage';
+import { TRACKING_ID, ROUTE, calculateShipPosition } from '@/lib/voyage';
 import Logo from './Logo';
 
 export default function VoyageVisualizer() {
@@ -20,15 +20,12 @@ export default function VoyageVisualizer() {
   const [shipPosition, setShipPosition] = useState<{ x: number; y: number; angle: number } | null>(null);
   const [statusText, setStatusText] = useState('');
   const [nextDestination, setNextDestination] = useState('');
-  const [segmentProgress, setSegmentProgress] = useState(0);
-  const [segmentIndex, setSegmentIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [startTime, setStartTime] = useState<number | null>(null);
 
   const startTracking = () => {
     setIsTracking(true);
-    setSegmentIndex(0);
-    setSegmentProgress(0);
-    const initialPos = calculateShipPosition(0, 0);
-    setShipPosition(initialPos);
+    setStartTime(Date.now());
   };
 
   const resetTracking = () => {
@@ -38,8 +35,8 @@ export default function VoyageVisualizer() {
     setShipPosition(null);
     setStatusText('');
     setNextDestination('');
-    setSegmentProgress(0);
-    setSegmentIndex(0);
+    setProgress(0);
+    setStartTime(null);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -53,43 +50,35 @@ export default function VoyageVisualizer() {
   };
 
   useEffect(() => {
-    if (!isTracking) return;
+    if (!isTracking || !startTime) return;
 
-    const currentSegment = ROUTE[segmentIndex];
-    if (!currentSegment) {
-      const finalDestination = ROUTE[ROUTE.length - 1]?.end.name || 'final destination';
-      setStatusText(`Shipment has arrived at ${finalDestination}.`);
-      setNextDestination('Journey complete');
-      setShipPosition(calculateShipPosition(ROUTE.length, 1));
-      return;
-    }
+    const totalDuration = ROUTE.reduce((acc, segment) => acc + segment.duration, 0);
+
+    const updatePosition = () => {
+      const elapsedTime = Date.now() - startTime;
+      const totalProgress = Math.min(elapsedTime / totalDuration, 1);
+      
+      const { position, currentStatus, nextDest, segmentProgress } = calculateShipPosition(totalProgress);
+      
+      setShipPosition(position);
+      setStatusText(currentStatus);
+      setNextDestination(nextDest);
+      setProgress(segmentProgress * 100);
+
+      if (totalProgress < 1) {
+        requestAnimationFrame(updatePosition);
+      } else {
+        const finalDestination = ROUTE[ROUTE.length - 1]?.end.name || 'final destination';
+        setStatusText(`Shipment has arrived at ${finalDestination}.`);
+        setNextDestination('Journey complete');
+        setProgress(100);
+      }
+    };
     
-    setStatusText(`In transit to ${currentSegment.end.name}`);
-    setNextDestination(`Next stop: ${currentSegment.end.name}`);
+    const animationFrameId = requestAnimationFrame(updatePosition);
 
-    const interval = setInterval(() => {
-      setSegmentProgress(prev => {
-        const updateRate = 100; // ms
-        const progressIncrement = (updateRate / currentSegment.duration);
-        const newProgress = prev + progressIncrement;
-
-        if (newProgress >= 1) {
-          setSegmentIndex(idx => idx + 1);
-          return 0;
-        }
-        return newProgress;
-      });
-    }, 100);
-
-    return () => clearInterval(interval);
-  }, [isTracking, segmentIndex]);
-
-  useEffect(() => {
-    if (!isTracking) return;
-    
-    const pos = calculateShipPosition(segmentIndex, segmentProgress);
-    setShipPosition(pos);
-  }, [isTracking, segmentIndex, segmentProgress]);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isTracking, startTime]);
   
 
   if (!isTracking) {
@@ -133,7 +122,7 @@ export default function VoyageVisualizer() {
         trackingId={TRACKING_ID}
         statusText={statusText}
         nextDestination={nextDestination}
-        progress={segmentProgress * 100}
+        progress={progress}
       />
     </div>
   );
