@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -15,20 +15,20 @@ import Logo from './Logo';
 
 // Default hardcoded route if no URL params are provided
 const DEFAULT_ROUTE = [
-  { start: { name: "Seattle, USA", lng: -122.3321, lat: 47.6062 }, end: { name: "N. Pacific", lng: -140, lat: 45 }, duration: 120000 },
-  { start: { name: "N. Pacific", lng: -140, lat: 45 }, end: { name: "Aleutian Islands", lng: 178, lat: 52 }, duration: 80000 },
-  { start: { name: "Aleutian Islands", lng: 178, lat: 52 }, end: { name: "East of Japan", lng: 155, lat: 35 }, duration: 60000 },
-  { start: { name: "East of Japan", lng: 155, lat: 35 }, end: { name: "S. China Sea", lng: 118, lat: 20 }, duration: 50000 },
-  { start: { name: "S. China Sea", lng: 118, lat: 20 }, end: { name: "Strait of Malacca", lng: 100, lat: 4 }, duration: 40000 },
-  { start: { name: "Strait of Malacca", lng: 100, lat: 4 }, end: { name: "South of Sri Lanka", lng: 80, lat: 5 }, duration: 50000 },
-  { start: { name: "South of Sri Lanka", lng: 80, lat: 5 }, end: { name: "Arabian Sea", lng: 65, lat: 18 }, duration: 50000 },
-  { start: { name: "Arabian Sea", lng: 65, lat: 18 }, end: { name: "Dubai, UAE", lng: 55.2708, lat: 25.2048 }, duration: 50000 },
-  { start: { name: "Dubai, UAE", lng: 55.2708, lat: 25.2048 }, end: { name: "Arabian Sea", lng: 65, lat: 18 }, duration: 50000 },
-  { start: { name: "Arabian Sea", lng: 65, lat: 18 }, end: { name: "South of Sri Lanka", lng: 80, lat: 5 }, duration: 50000 },
-  { start: { name: "South of Sri Lanka", lng: 80, lat: 5 }, end: { name: "Strait of Malacca", lng: 100, lat: 4 }, duration: 50000 },
-  { start: { name: "Strait of Malacca", lng: 100, lat: 4 }, end: { name: "S. China Sea", lng: 118, lat: 20 }, duration: 60000 },
-  { start: { name: "S. China Sea", lng: 118, lat: 20 }, end: { name: "East of Japan", lng: 155, lat: 35 }, duration: 100000 },
-  { start: { name: "East of Japan", lng: 155, lat: 35 }, end: { name: "Busan, South Korea", lng: 129.0756, lat: 35.1796 }, duration: 190000 },
+    { start: { name: "Seattle, USA", lng: -122.3321, lat: 47.6062 }, end: { name: "N. Pacific", lng: -140, lat: 45 }, duration: 120000 },
+    { start: { name: "N. Pacific", lng: -140, lat: 45 }, end: { name: "Aleutian Islands", lng: 178, lat: 52 }, duration: 80000 },
+    { start: { name: "Aleutian Islands", lng: 178, lat: 52 }, end: { name: "East of Japan", lng: 155, lat: 35 }, duration: 60000 },
+    { start: { name: "East of Japan", lng: 155, lat: 35 }, end: { name: "S. China Sea", lng: 118, lat: 20 }, duration: 50000 },
+    { start: { name: "S. China Sea", lng: 118, lat: 20 }, end: { name: "Strait of Malacca", lng: 100, lat: 4 }, duration: 40000 },
+    { start: { name: "Strait of Malacca", lng: 100, lat: 4 }, end: { name: "South of Sri Lanka", lng: 80, lat: 5 }, duration: 50000 },
+    { start: { name: "South of Sri Lanka", lng: 80, lat: 5 }, end: { name: "Arabian Sea", lng: 65, lat: 18 }, duration: 50000 },
+    { start: { name: "Arabian Sea", lng: 65, lat: 18 }, end: { name: "Dubai, UAE", lng: 55.2708, lat: 25.2048 }, duration: 50000 },
+    { start: { name: "Dubai, UAE", lng: 55.2708, lat: 25.2048 }, end: { name: "Arabian Sea", lng: 65, lat: 18 }, duration: 50000 },
+    { start: { name: "Arabian Sea", lng: 65, lat: 18 }, end: { name: "South of Sri Lanka", lng: 80, lat: 5 }, duration: 50000 },
+    { start: { name: "South of Sri Lanka", lng: 80, lat: 5 }, end: { name: "Strait of Malacca", lng: 100, lat: 4 }, duration: 50000 },
+    { start: { name: "Strait of Malacca", lng: 100, lat: 4 }, end: { name: "S. China Sea", lng: 118, lat: 20 }, duration: 60000 },
+    { start: { name: "S. China Sea", lng: 118, lat: 20 }, end: { name: "East of Japan", lng: 155, lat: 35 }, duration: 100000 },
+    { start: { name: "East of Japan", lng: 155, lat: 35 }, end: { name: "Busan, South Korea", lng: 129.0756, lat: 35.1796 }, duration: 190000 },
 ];
 
 async function geocode(locationName: string): Promise<{lng: number, lat: number} | null> {
@@ -52,6 +52,7 @@ async function geocode(locationName: string): Promise<{lng: number, lat: number}
 
 function VoyageVisualizerContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [isTracking, setIsTracking] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState('');
@@ -106,9 +107,13 @@ function VoyageVisualizerContent() {
       };
       
       buildRoute();
-      
+    } else if (searchParams.toString()) {
+        // If there are any params but not the full set, maybe show an error or reset
+        console.warn("Incomplete tracking data in URL.");
+        // Optional: redirect to a clean URL
+        // router.push('/tracking');
     }
-  }, [searchParams]);
+  }, [searchParams, router]);
 
 
   const startDefaultTracking = () => {
@@ -116,7 +121,6 @@ function VoyageVisualizerContent() {
     setRoute(DEFAULT_ROUTE);
     setTrackingId(DEFAULT_TRACKING_ID);
     
-    // Find the duration to get to the Arabian Sea (the stop before Dubai)
     let timeToDubaiApproach = 0;
     for (let i = 0; i < DEFAULT_ROUTE.length; i++) {
         if (DEFAULT_ROUTE[i].end.name === "Dubai, UAE") {
@@ -124,12 +128,10 @@ function VoyageVisualizerContent() {
         }
         timeToDubaiApproach += DEFAULT_ROUTE[i].duration;
     }
-    // Set the start time to be in the past, so we start near Dubai
     setStartTime(Date.now() - timeToDubaiApproach);
   };
 
   const resetTracking = () => {
-    // A full page reload is the simplest way to clear state and URL params
     window.location.href = '/tracking';
   };
 
@@ -147,6 +149,7 @@ function VoyageVisualizerContent() {
     if (!isTracking || !startTime) return;
 
     const totalDuration = route.reduce((acc, segment) => acc + segment.duration, 0);
+    let animationFrameId: number;
 
     const updatePosition = () => {
       const elapsedTime = Date.now() - startTime;
@@ -160,7 +163,7 @@ function VoyageVisualizerContent() {
       setProgress(segmentProgress * 100);
 
       if (totalProgress < 1) {
-        requestAnimationFrame(updatePosition);
+        animationFrameId = requestAnimationFrame(updatePosition);
       } else {
         const finalDestination = route[route.length - 1]?.end.name || 'final destination';
         setStatusText(`Shipment has arrived at ${finalDestination}.`);
@@ -169,7 +172,7 @@ function VoyageVisualizerContent() {
       }
     };
     
-    const animationFrameId = requestAnimationFrame(updatePosition);
+    updatePosition();
 
     return () => cancelAnimationFrame(animationFrameId);
   }, [isTracking, startTime, route]);
@@ -232,3 +235,5 @@ export default function VoyageVisualizer() {
         </Suspense>
     )
 }
+
+    
