@@ -137,6 +137,17 @@ export default function Map({ shipPosition }: MapProps) {
       shipMarker.current.getElement().style.transform = `rotate(${shipPosition.angle}deg)`;
     }
 
+    // Fly to the ship's position when it updates
+    map.current.flyTo({
+      center: coordinates,
+      zoom: 5,
+      speed: 0.5,
+      curve: 1,
+      easing(t) {
+        return t;
+      },
+    });
+
   }, [mapLoaded, shipPosition]);
 
   return (
