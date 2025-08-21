@@ -1,8 +1,7 @@
 import Link from 'next/link';
-import { Anchor, ArrowRight, Briefcase, ChevronDown, Globe, Search, Ship, Warehouse } from 'lucide-react';
+import { Anchor, ArrowRight, Briefcase, Globe, Ship, Warehouse } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import Logo from '@/components/voyage/Logo';
 
 const Header = () => (
@@ -10,7 +9,7 @@ const Header = () => (
     <div className="container flex h-14 items-center">
       <div className="mr-4 flex items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2">
-          <Logo className="h-6 w-6" />
+          <Logo className="h-8 w-8" />
           <span className="font-bold">UN shipping line</span>
         </Link>
         <nav className="hidden space-x-6 text-sm font-medium md:flex">
@@ -95,30 +94,30 @@ export default function LandingPage() {
         </section>
 
         {/* What is Ocean Freight Section */}
-        <section className="container py-12 md:py-24">
-          <div className="grid gap-8 md:grid-cols-2">
+        <section className="container py-16 md:py-24">
+          <div className="grid items-center gap-12 md:grid-cols-2">
             <div>
-              <h2 className="text-3xl font-bold">What is Ocean Freight?</h2>
-              <p className="mt-4 text-muted-foreground">
+              <h2 className="text-3xl font-bold tracking-tight">What is Ocean Freight?</h2>
+              <p className="mt-4 text-lg text-muted-foreground">
                 Ocean freight shipping is the method of transporting containerised cargo loaded onto vessels by ocean. Over 90% of all the world’s trade is carried by ocean transportation. If you want to ship your freight around the world, ocean transport is the most convenient option.
               </p>
-              <p className="mt-4 text-muted-foreground">
+              <p className="mt-4 text-lg text-muted-foreground">
                 As a general rule, shipments weighing more than 100kg – or consisting of multiple cartons – will be sent by ocean transport. The containers are designed and built for intermodal freight transport. That means they can be used across various transportation modes – from ship to rail to truck – without unloading and reloading the cargo.
               </p>
-              <Button variant="link" className="mt-4 px-0">View our services <ArrowRight className="ml-2 h-4 w-4" /></Button>
+              <Button variant="link" className="mt-6 px-0 text-base">View our services <ArrowRight className="ml-2 h-4 w-4" /></Button>
             </div>
             <div className="flex items-center justify-center">
-              <img src="https://placehold.co/600x400.png" alt="Ocean freight ship containers" className="rounded-lg shadow-lg" data-ai-hint="shipping containers port" />
+              <img src="https://placehold.co/600x400.png" alt="Ocean freight ship containers" className="rounded-lg shadow-2xl" data-ai-hint="shipping containers port" />
             </div>
           </div>
         </section>
 
         {/* Benefits Section */}
-        <section className="bg-muted py-12 md:py-24">
+        <section className="bg-muted py-16 md:py-24">
           <div className="container">
-            <h2 className="mb-8 text-center text-3xl font-bold">Benefits of Ocean Freight Shipping</h2>
+            <h2 className="mb-12 text-center text-3xl font-bold tracking-tight">Benefits of Ocean Freight Shipping</h2>
             <div className="grid gap-8 md:grid-cols-2">
-              <Card>
+              <Card className="shadow-lg">
                 <CardHeader>
                   <CardTitle>Cost-Effective</CardTitle>
                 </CardHeader>
@@ -126,7 +125,7 @@ export default function LandingPage() {
                   <p className="text-muted-foreground">A cost-effective transport method compared to other modes (e.g. air freight) over long distances.</p>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="shadow-lg">
                 <CardHeader>
                   <CardTitle>Eco-Friendly</CardTitle>
                 </CardHeader>
@@ -139,10 +138,10 @@ export default function LandingPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="container py-12 md:py-24">
-           <h2 className="mb-8 text-center text-3xl font-bold">Anything you need, we’re here to help</h2>
-          <div className="grid gap-8 md:grid-cols-2">
-            <Card>
+        <section className="container py-16 md:py-24">
+           <h2 className="mb-8 text-center text-3xl font-bold tracking-tight">Anything you need, we’re here to help</h2>
+          <div className="mx-auto grid max-w-4xl gap-8 md:grid-cols-2">
+            <Card className="text-center">
               <CardHeader>
                 <CardTitle>Find Prices</CardTitle>
                 <CardDescription>Ready to ship? Look up rates for new shipments and inland tariffs.</CardDescription>
@@ -151,7 +150,7 @@ export default function LandingPage() {
                 <Button className="w-full">Find a price</Button>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="text-center">
               <CardHeader>
                 <CardTitle>Sales Enquiries</CardTitle>
                 <CardDescription>Contact us and we will respond within the next two working days.</CardDescription>
