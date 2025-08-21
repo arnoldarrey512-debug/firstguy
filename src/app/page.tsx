@@ -3,7 +3,7 @@ import { ArrowRight, Briefcase, Globe, Ship, Warehouse, Anchor, Menu } from 'luc
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Logo from '@/components/voyage/Logo';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
 const Header = () => (
   <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -30,6 +30,9 @@ const Header = () => (
             </Button>
           </SheetTrigger>
           <SheetContent side="left">
+            <SheetHeader className="sr-only">
+              <SheetTitle>Navigation Menu</SheetTitle>
+            </SheetHeader>
             <nav className="grid gap-6 text-lg font-medium">
               <Link href="/" className="flex items-center gap-2 text-lg font-semibold">
                 <Logo className="h-10 w-10" />
@@ -118,8 +121,8 @@ export default function LandingPage() {
         </section>
 
         {/* What is Ocean Freight Section */}
-        <section className="py-16 md:py-24">
-          <div className="container mx-auto max-w-4xl text-left pl-4">
+        <section className="container py-16 md:py-24">
+          <div className="mx-auto max-w-4xl text-left pl-4">
             <h2 className="text-3xl font-bold tracking-tight">What is Ocean Freight?</h2>
             <p className="mt-4 text-lg text-muted-foreground">
               Ocean freight shipping is the method of transporting containerised cargo loaded onto vessels by ocean. Over 90% of all the world’s trade is carried by ocean transportation. If you want to ship your freight around the world, ocean transport is the most convenient option.
