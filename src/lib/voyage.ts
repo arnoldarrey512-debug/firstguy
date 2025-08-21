@@ -1,13 +1,17 @@
 export const TRACKING_ID = "US-DXB-KR-123";
 
 export const LOCATIONS = {
-  USA: { name: "Los Angeles, USA", x: 10, y: 40, lng: -118.2437, lat: 34.0522 },
-  DUBAI: { name: "Dubai, UAE", x: 50, y: 60, lng: 55.2708, lat: 25.2048 },
-  KOREA: { name: "Busan, South Korea", x: 90, y: 40, lng: 129.0756, lat: 35.1796 },
+  USA: { name: "Seattle, USA", lng: -122.3321, lat: 47.6062 },
+  PACIFIC_OCEAN: { name: "Pacific Ocean", lng: 180, lat: 25 },
+  ARABIAN_SEA: { name: "Arabian Sea", lng: 65, lat: 20 },
+  DUBAI: { name: "Dubai, UAE", lng: 55.2708, lat: 25.2048 },
+  KOREA: { name: "Busan, South Korea", lng: 129.0756, lat: 35.1796 },
 };
 
 export const ROUTE = [
-  { start: LOCATIONS.USA, end: LOCATIONS.DUBAI, duration: 40000 }, // 40 seconds
+  { start: LOCATIONS.USA, end: LOCATIONS.PACIFIC_OCEAN, duration: 25000 }, // 25 seconds
+  { start: LOCATIONS.PACIFIC_OCEAN, end: LOCATIONS.ARABIAN_SEA, duration: 25000 }, // 25 seconds
+  { start: LOCATIONS.ARABIAN_SEA, end: LOCATIONS.DUBAI, duration: 10000 }, // 10 seconds
   { start: LOCATIONS.DUBAI, end: LOCATIONS.KOREA, duration: 20000 }, // 20 seconds
 ];
 

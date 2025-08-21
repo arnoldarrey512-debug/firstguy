@@ -33,9 +33,9 @@ export default function Map({ shipPosition, locations }: MapProps) {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/outdoors-v12',
-      center: [85, 30], // Centered between locations
-      zoom: 1.5,
-      interactive: false,
+      center: [40, 35], // Centered between locations
+      zoom: 2,
+      interactive: true,
     });
 
     map.current.on('load', () => {
@@ -51,6 +51,16 @@ export default function Map({ shipPosition, locations }: MapProps) {
   useEffect(() => {
     if (!mapLoaded || !map.current) return;
     
+    const visibleLocations = [locations.USA, locations.DUBAI, locations.KOREA];
+    const routeCoordinates = [
+        [locations.USA.lng, locations.USA.lat],
+        [locations.PACIFIC_OCEAN.lng, locations.PACIFIC_OCEAN.lat],
+        [locations.ARABIAN_SEA.lng, locations.ARABIAN_SEA.lat],
+        [locations.DUBAI.lng, locations.DUBAI.lat],
+        [locations.KOREA.lng, locations.KOREA.lat]
+    ];
+
+
     // Add route line
     if (!map.current.getSource('route')) {
       map.current.addSource('route', {
@@ -82,7 +92,7 @@ export default function Map({ shipPosition, locations }: MapProps) {
     }
 
     // Add location markers
-    Object.values(locations).forEach(loc => {
+    visibleLocations.forEach(loc => {
       const el = document.createElement('div');
       el.innerHTML = ReactDOMServer.renderToString(
         <div className="relative flex flex-col items-center">
@@ -96,7 +106,7 @@ export default function Map({ shipPosition, locations }: MapProps) {
         .addTo(map.current!);
     });
 
-  }, [mapLoaded, locations, routeCoordinates, routeColor]);
+  }, [mapLoaded, locations, routeColor]);
 
   useEffect(() => {
     if (!mapLoaded || !map.current || !shipPosition) return;
