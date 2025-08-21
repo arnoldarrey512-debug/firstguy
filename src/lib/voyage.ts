@@ -3,9 +3,9 @@ export const TRACKING_ID = "US-DXB-KR-123";
 
 export const LOCATIONS = {
   USA: { name: "Seattle, USA", lng: -122.3321, lat: 47.6062 },
-  PACIFIC_OCEAN_NORTH: { name: "North Pacific Ocean", lng: -150, lat: 40 },
-  WEST_PACIFIC: { name: "West Pacific", lng: 145, lat: 20 },
-  SOUTH_CHINA_SEA: { name: "South China Sea", lng: 110, lat: 10 },
+  PACIFIC_OCEAN_NORTH: { name: "N. Pacific Ocean", lng: -175, lat: 45 },
+  WEST_PACIFIC: { name: "W. Pacific Ocean", lng: 160, lat: 30 },
+  SOUTH_CHINA_SEA: { name: "South China Sea", lng: 115, lat: 15 },
   STRAIT_OF_MALACCA: { name: "Strait of Malacca", lng: 100, lat: 5 },
   INDIAN_OCEAN: { name: "Indian Ocean", lng: 80, lat: 10 },
   ARABIAN_SEA: { name: "Arabian Sea", lng: 65, lat: 20 },
