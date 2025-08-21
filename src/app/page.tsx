@@ -97,7 +97,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="border-t py-4 text-center text-sm text-muted-foreground">
-        © A.P. Moller - Maersk
+        © UN shipping line
       </div>
     </div>
   </footer>
@@ -123,26 +123,26 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* What is Ocean Freight Section */}
-        <section className="py-16 md:py-24">
-          <div className="container px-4 md:px-6">
-            <div className="grid gap-12 md:grid-cols-2 md:items-center">
-              <div className="text-left">
-                <h2 className="text-3xl font-bold tracking-tight">What is Ocean Freight?</h2>
-                <p className="mt-4 text-lg text-muted-foreground">
-                  Ocean freight shipping is the method of transporting containerised cargo loaded onto vessels by ocean. Over 90% of all the world’s trade is carried by ocean transportation. If you want to ship your freight around the world, ocean transport is the most convenient option.
-                </p>
-                <p className="mt-4 text-lg text-muted-foreground">
-                  As a general rule, shipments weighing more than 100kg – or consisting of multiple cartons – will be sent by ocean transport. The containers are designed and built for intermodal freight transport. That means they can be used across various transportation modes – from ship to rail to truck – without unloading and reloading the cargo.
-                </p>
-                <Button variant="link" className="mt-6 px-0 text-base" asChild><Link href="/login">View our services <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
-              </div>
-              <div className="flex items-center justify-center">
-                <img src="https://www.maersk.com/~/media_sc9/maersk/solutions/transportation-services/ocean-transport/images/ocean-freight-ship-containers_720x405.jpg?w=1325&hash=464BB5C5D85515F125C16BA8705AADC0" alt="Ocean freight ship containers" className="rounded-lg shadow-2xl" data-ai-hint="container ship" />
-              </div>
-            </div>
-          </div>
-        </section>
+        <div className="container px-4 md:px-6">
+            {/* What is Ocean Freight Section */}
+            <section className="py-16 md:py-24">
+                <div className="grid gap-12 md:grid-cols-2 md:items-center">
+                  <div className="text-left">
+                    <h2 className="text-3xl font-bold tracking-tight">What is Ocean Freight?</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">
+                      Ocean freight shipping is the method of transporting containerised cargo loaded onto vessels by ocean. Over 90% of all the world’s trade is carried by ocean transportation. If you want to ship your freight around the world, ocean transport is the most convenient option.
+                    </p>
+                    <p className="mt-4 text-lg text-muted-foreground">
+                      As a general rule, shipments weighing more than 100kg – or consisting of multiple cartons – will be sent by ocean transport. The containers are designed and built for intermodal freight transport. That means they can be used across various transportation modes – from ship to rail to truck – without unloading and reloading the cargo.
+                    </p>
+                    <Button variant="link" className="mt-6 px-0 text-base" asChild><Link href="/login">View our services <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <img src="https://www.maersk.com/~/media_sc9/maersk/solutions/transportation-services/ocean-transport/images/ocean-freight-ship-containers_720x405.jpg?w=1325&hash=464BB5C5D85515F125C16BA8705AADC0" alt="Ocean freight ship containers" className="rounded-lg shadow-2xl" data-ai-hint="container ship" />
+                  </div>
+                </div>
+            </section>
+        </div>
 
         {/* Benefits Section */}
         <section className="bg-muted py-16 md:py-24">
