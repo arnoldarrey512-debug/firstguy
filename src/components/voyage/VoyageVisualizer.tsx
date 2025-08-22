@@ -26,7 +26,7 @@ const routes: Record<string, Route> = {
         { start: { name: "Shannon, IE", lng: -8.9248, lat: 52.6998 }, end: { name: "Frankfurt, DE", lng: 8.6821, lat: 50.1109 }, duration: 15000 },
     ],
     "US-DXB-KR-123": [
-        { start: { name: "New York, USA", lng: -73.7781, lat: 40.6413 }, end: { name: "Dubai, UAE", lng: 55.3657, lat: 25.2532 }, duration: 60000 },
+        { start: { name: "Washington D.C., USA", lng: -77.0369, lat: 38.9072 }, end: { name: "Dubai, UAE", lng: 55.3657, lat: 25.2532 }, duration: 60000 },
         { start: { name: "Dubai, UAE", lng: 55.3657, lat: 25.2532 }, end: { name: "Seoul, KR", lng: 126.4407, lat: 37.4602 }, duration: 40000 },
     ]
 };
@@ -51,7 +51,17 @@ function VoyageVisualizerContent() {
         setError(null);
         // Simulate a progress point for demonstration
         const totalDuration = route.reduce((acc, leg) => acc + leg.duration, 0);
-        const timeToStart = totalDuration * 0.1; // Start 10% into the journey
+        
+        let timeToStart;
+        if (trackingId === "US-DXB-KR-123") {
+            // Start 90% into the first leg
+            const firstLegDuration = route[0].duration;
+            timeToStart = firstLegDuration * 0.9;
+        } else {
+            // Default start time
+            timeToStart = totalDuration * 0.1; // Start 10% into the journey
+        }
+        
         setStartTime(Date.now() - timeToStart);
     } else {
         setError('Invalid tracking ID. Please try again.');
