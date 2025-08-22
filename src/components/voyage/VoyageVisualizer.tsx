@@ -31,6 +31,9 @@ const routes: Record<string, Route> = {
     ]
 };
 
+const FIVE_DAYS_IN_MS = 5 * 24 * 60 * 60 * 1000;
+
+
 function VoyageVisualizerContent() {
   const [isTracking, setIsTracking] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -49,14 +52,15 @@ function VoyageVisualizerContent() {
         setCurrentRoute(route);
         setIsTracking(true);
         setError(null);
+        setInputValue(trackingId);
         // Simulate a progress point for demonstration
         const totalDuration = route.reduce((acc, leg) => acc + leg.duration, 0);
         
         let timeToStart;
         if (trackingId === "US-DXB-KR-123") {
-            // Start 90% into the first leg
+            // Start 99.9% into the first leg to appear 'stuck' before Dubai
             const firstLegDuration = route[0].duration;
-            timeToStart = firstLegDuration * 0.9;
+            timeToStart = firstLegDuration * 0.999;
         } else {
             // Default start time
             timeToStart = totalDuration * 0.1; // Start 10% into the journey
@@ -92,13 +96,31 @@ function VoyageVisualizerContent() {
     let animationFrameId: number;
 
     const updatePosition = () => {
-      const elapsedTime = Date.now() - startTime;
+      let elapsedTime = Date.now() - startTime;
+      
+      // Special logic for the "stuck" flight
+      if (inputValue === "US-DXB-KR-123") {
+          const firstLegDuration = currentRoute[0].duration;
+          const stuckTime = firstLegDuration * 0.999;
+          
+          if (elapsedTime >= stuckTime && elapsedTime < stuckTime + FIVE_DAYS_IN_MS) {
+              // Freeze time at the stuck point
+              elapsedTime = stuckTime;
+              setStatusText("Delayed - Awaiting Landing Slot");
+          } else if (elapsedTime >= stuckTime + FIVE_DAYS_IN_MS) {
+              // Resume journey after 5 days, adjust elapsed time to account for delay
+              elapsedTime -= FIVE_DAYS_IN_MS;
+          }
+      }
+
       const totalProgress = Math.min(elapsedTime / totalDuration, 1);
       
       const { position, currentStatus, nextDest, segmentProgress } = calculateShipPosition(totalProgress, currentRoute);
       
+      if (statusText !== "Delayed - Awaiting Landing Slot") {
+        setStatusText(currentStatus);
+      }
       setShipPosition(position);
-      setStatusText(currentStatus);
       setNextDestination(nextDest);
       setProgress(segmentProgress * 100);
 
@@ -115,7 +137,7 @@ function VoyageVisualizerContent() {
     updatePosition();
 
     return () => cancelAnimationFrame(animationFrameId);
-  }, [isTracking, startTime, currentRoute]);
+  }, [isTracking, startTime, currentRoute, inputValue, statusText]);
   
 
   if (!isTracking || !currentRoute) {
