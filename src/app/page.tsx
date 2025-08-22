@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import { ArrowRight, Briefcase, Globe, Plane, Warehouse, Menu, Search, Star, Truck, Building } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -78,93 +79,97 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <div className="container">
-          <section className="py-16 md:py-24">
-              <div className="grid gap-8 md:grid-cols-3">
-                  <Card className="shadow-lg">
-                      <CardHeader>
-                          <CardTitle>Ship Now</CardTitle>
-                          <CardDescription>Find the right service for your shipping needs.</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                          <Button className="w-full" asChild><Link href="/login">Explore Services</Link></Button>
-                      </CardContent>
-                  </Card>
-                  <Card className="shadow-lg">
-                      <CardHeader>
-                          <CardTitle>Get a Quote</CardTitle>
-                          <CardDescription>Estimate cost to share and compare options.</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                          <Button className="w-full" asChild><Link href="/login">Get a Quote</Link></Button>
-                      </CardContent>
-                  </Card>
-                  <Card className="shadow-lg">
-                      <CardHeader>
-                          <CardTitle>UN Air Cargo for Business</CardTitle>
-                          <CardDescription>Request a business account for exclusive benefits.</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                          <Button className="w-full" asChild><Link href="/login">Request an Account</Link></Button>
-                      </CardContent>
-                  </Card>
-              </div>
-          </section>
+        <section className="py-16 md:py-24">
+          <div className="container">
+            <div className="grid gap-8 md:grid-cols-3">
+                <Card className="shadow-lg">
+                    <CardHeader>
+                        <CardTitle>Ship Now</CardTitle>
+                        <CardDescription>Find the right service for your shipping needs.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <Button className="w-full" asChild><Link href="/login">Explore Services</Link></Button>
+                    </CardContent>
+                </Card>
+                <Card className="shadow-lg">
+                    <CardHeader>
+                        <CardTitle>Get a Quote</CardTitle>
+                        <CardDescription>Estimate cost to share and compare options.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <Button className="w-full" asChild><Link href="/login">Get a Quote</Link></Button>
+                    </CardContent>
+                </Card>
+                <Card className="shadow-lg">
+                    <CardHeader>
+                        <CardTitle>UN Air Cargo for Business</CardTitle>
+                        <CardDescription>Request a business account for exclusive benefits.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <Button className="w-full" asChild><Link href="/login">Request an Account</Link></Button>
+                    </CardContent>
+                </Card>
+            </div>
+          </div>
+        </section>
+      
+        <section className="py-16 md:py-24">
+            <div className="container">
+                <div className="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 className="text-3xl font-bold">Navigating Latest Tariff Developments</h2>
+                        <p className="mt-4 text-lg text-muted-foreground">
+                        Global trade is becoming increasingly complex as new U.S. tariffs and varying reciprocal measures emerge across countries and industries. At UN Air Cargo, we are committed to helping you navigate these changes.
+                        </p>
+                        <Button variant="link" className="mt-4 px-0" asChild><Link href="/login">Learn More <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+                    </div>
+                    <div className="flex justify-center">
+                        <img src="https://placehold.co/600x400.png" alt="Global Trade" className="rounded-lg shadow-2xl" data-ai-hint="global trade map" />
+                    </div>
+                </div>
+            </div>
+        </section>
+      
+        <section className="py-16 md:py-24">
+            <div className="container">
+                <h2 className="text-3xl font-bold text-center mb-12">Explore Our Solutions</h2>
+                <div className="grid gap-8 md:grid-cols-2">
+                    <Card className="shadow-lg">
+                        <CardHeader>
+                           <CardTitle>Document and Parcel Shipping</CardTitle>
+                           <CardDescription>For All Shippers</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <p>Learn about UN Air Cargo Express – the undisputed global leader in international express shipping.</p>
+                            <ul className="list-disc list-inside text-muted-foreground space-y-1">
+                                <li>Next Possible Business Day</li>
+                                <li>Flexible Import/Export Options</li>
+                                <li>Tailored Business Solutions</li>
+                                <li>Wide Variety of Optional Services</li>
+                            </ul>
+                            <Button variant="secondary" className="w-full mt-2" asChild><Link href="/login">Explore UN Air Cargo Express</Link></Button>
+                        </CardContent>
+                    </Card>
+                    <Card className="shadow-lg">
+                        <CardHeader>
+                            <CardTitle>Cargo Shipping</CardTitle>
+                            <CardDescription>Business Only</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <p>Discover shipping and logistics service options from UN Air Cargo Global Forwarding.</p>
+                            <ul className="list-disc list-inside text-muted-foreground space-y-1">
+                                <li>Air Freight</li>
+                                <li>Road Freight</li>
+                                <li>Ocean Freight</li>
+                                <li>Rail Freight</li>
+                            </ul>
+                            <Button variant="secondary" className="w-full mt-2" asChild><Link href="/login">Explore UN Air Cargo Global Forwarding</Link></Button>
+                        </CardContent>
+                    </Card>
+                </div>
+            </div>
+        </section>
         
-          <section className="py-16 md:py-24">
-              <div className="grid md:grid-cols-2 gap-12 items-center">
-                  <div>
-                      <h2 className="text-3xl font-bold">Navigating Latest Tariff Developments</h2>
-                      <p className="mt-4 text-lg text-muted-foreground">
-                      Global trade is becoming increasingly complex as new U.S. tariffs and varying reciprocal measures emerge across countries and industries. At UN Air Cargo, we are committed to helping you navigate these changes.
-                      </p>
-                      <Button variant="link" className="mt-4 px-0" asChild><Link href="/login">Learn More <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
-                  </div>
-                  <div className="flex justify-center">
-                      <img src="https://placehold.co/600x400.png" alt="Global Trade" className="rounded-lg shadow-2xl" data-ai-hint="global trade map" />
-                  </div>
-              </div>
-          </section>
-        
-          <section className="py-16 md:py-24">
-              <h2 className="text-3xl font-bold text-center mb-12">Explore Our Solutions</h2>
-              <div className="grid gap-8 md:grid-cols-2">
-                  <Card className="shadow-lg">
-                      <CardHeader>
-                         <CardTitle>Document and Parcel Shipping</CardTitle>
-                         <CardDescription>For All Shippers</CardDescription>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                          <p>Learn about UN Air Cargo Express – the undisputed global leader in international express shipping.</p>
-                          <ul className="list-disc list-inside text-muted-foreground space-y-1">
-                              <li>Next Possible Business Day</li>
-                              <li>Flexible Import/Export Options</li>
-                              <li>Tailored Business Solutions</li>
-                              <li>Wide Variety of Optional Services</li>
-                          </ul>
-                          <Button variant="secondary" className="w-full mt-2" asChild><Link href="/login">Explore UN Air Cargo Express</Link></Button>
-                      </CardContent>
-                  </Card>
-                  <Card className="shadow-lg">
-                      <CardHeader>
-                          <CardTitle>Cargo Shipping</CardTitle>
-                          <CardDescription>Business Only</CardDescription>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                          <p>Discover shipping and logistics service options from UN Air Cargo Global Forwarding.</p>
-                          <ul className="list-disc list-inside text-muted-foreground space-y-1">
-                              <li>Air Freight</li>
-                              <li>Road Freight</li>
-                              <li>Ocean Freight</li>
-                              <li>Rail Freight</li>
-                          </ul>
-                          <Button variant="secondary" className="w-full mt-2" asChild><Link href="/login">Explore UN Air Cargo Global Forwarding</Link></Button>
-                      </CardContent>
-                  </Card>
-              </div>
-          </section>
-        </div>
-
         <section className="bg-primary text-primary-foreground py-16 md:py-24">
             <div className="container text-center">
                 <h2 className="text-3xl font-bold">Sustainability</h2>
