@@ -21,6 +21,12 @@ const nextConfig: NextConfig = {
         hostname: 'www.maersk.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'airfreight.emexexpress.de',
+        port: '',
+        pathname: '/**',
       }
     ],
   },

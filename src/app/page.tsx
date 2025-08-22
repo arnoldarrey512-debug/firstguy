@@ -79,8 +79,8 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="py-16 md:py-24">
-          <div className="container px-4 md:px-6">
+        <section className="py-16 md:py-24 px-4 md:px-6">
+          <div className="container">
             <div className="grid gap-8 md:grid-cols-3">
                 <Card className="shadow-lg">
                     <CardHeader>
@@ -113,8 +113,8 @@ export default function LandingPage() {
           </div>
         </section>
       
-        <section className="py-16 md:py-24">
-            <div className="container px-4 md:px-6">
+        <section className="py-16 md:py-24 px-4 md:px-6">
+            <div className="container">
                 <div className="grid md:grid-cols-2 gap-12 items-center">
                     <div>
                         <h2 className="text-3xl font-bold">Navigating Latest Tariff Developments</h2>
@@ -124,14 +124,14 @@ export default function LandingPage() {
                         <Button variant="link" className="mt-4 px-0" asChild><Link href="/login">Learn More <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
                     </div>
                     <div className="flex justify-center">
-                        <img src="https://placehold.co/600x400.png" alt="Global Trade" className="rounded-lg shadow-2xl" data-ai-hint="global trade map" />
+                        <img src="https://airfreight.emexexpress.de/_next/image?url=%2Faircargo%20hero%20image.jpg&w=828&q=75" alt="Global Trade" className="rounded-lg shadow-2xl" data-ai-hint="global trade map" />
                     </div>
                 </div>
             </div>
         </section>
       
-        <section className="py-16 md:py-24">
-            <div className="container px-4 md:px-6">
+        <section className="py-16 md:py-24 px-4 md:px-6">
+            <div className="container">
                 <h2 className="text-3xl font-bold text-center mb-12">Explore Our Solutions</h2>
                 <div className="grid gap-8 md:grid-cols-2">
                     <Card className="shadow-lg">
@@ -170,8 +170,8 @@ export default function LandingPage() {
             </div>
         </section>
         
-        <section className="bg-primary text-primary-foreground py-16 md:py-24">
-            <div className="container px-4 md:px-6 text-center">
+        <section className="bg-primary text-primary-foreground py-16 md:py-24 px-4 md:px-6">
+            <div className="container text-center">
                 <h2 className="text-3xl font-bold">Sustainability</h2>
                 <p className="mt-4 max-w-3xl mx-auto text-lg">
                 Sustainable business begins with sustainable supply chains. We proudly provide a comprehensive portfolio of emission reduced logistics solutions. Find out what we have to offer, why we’re committed to sustainability, and how our industry is helping deliver an even better world.
