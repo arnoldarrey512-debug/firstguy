@@ -68,7 +68,7 @@ export default function LandingPage() {
           data-ai-hint="cargo plane sky"
         >
           <div className="absolute inset-0 bg-black/50" />
-          <div className="relative z-10 text-center px-4">
+          <div className="relative container z-10 text-center px-4">
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight">Your Partner in Global Air Freight</h1>
             <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-primary-foreground/80">Fast, reliable, and secure cargo solutions to every corner of the globe.</p>
             <div className="mt-8 flex justify-center">
@@ -80,7 +80,7 @@ export default function LandingPage() {
         </section>
 
         <section className="py-16 md:py-24">
-          <div className="container">
+          <div className="container px-4 md:px-6">
             <div className="grid gap-8 md:grid-cols-3">
                 <Card className="shadow-lg">
                     <CardHeader>
@@ -114,7 +114,7 @@ export default function LandingPage() {
         </section>
       
         <section className="py-16 md:py-24">
-            <div className="container">
+            <div className="container px-4 md:px-6">
                 <div className="grid md:grid-cols-2 gap-12 items-center">
                     <div>
                         <h2 className="text-3xl font-bold">Navigating Latest Tariff Developments</h2>
@@ -131,7 +131,7 @@ export default function LandingPage() {
         </section>
       
         <section className="py-16 md:py-24">
-            <div className="container">
+            <div className="container px-4 md:px-6">
                 <h2 className="text-3xl font-bold text-center mb-12">Explore Our Solutions</h2>
                 <div className="grid gap-8 md:grid-cols-2">
                     <Card className="shadow-lg">
@@ -171,7 +171,7 @@ export default function LandingPage() {
         </section>
         
         <section className="bg-primary text-primary-foreground py-16 md:py-24">
-            <div className="container text-center">
+            <div className="container px-4 md:px-6 text-center">
                 <h2 className="text-3xl font-bold">Sustainability</h2>
                 <p className="mt-4 max-w-3xl mx-auto text-lg">
                 Sustainable business begins with sustainable supply chains. We proudly provide a comprehensive portfolio of emission reduced logistics solutions. Find out what we have to offer, why we’re committed to sustainability, and how our industry is helping deliver an even better world.
