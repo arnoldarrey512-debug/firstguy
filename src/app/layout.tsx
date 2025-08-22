@@ -2,8 +2,8 @@ import type {Metadata} from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'UN shipping line - Global Container Shipping Company',
-  description: 'UN shipping line is a global leader in container shipping and logistics. We deliver your cargo to every corner of the globe.',
+  title: 'UN Air Cargo - Global Air Freight Company',
+  description: 'UN Air Cargo is a global leader in air freight and logistics. We deliver your cargo to every corner of the globe.',
 };
 
 export default function RootLayout({

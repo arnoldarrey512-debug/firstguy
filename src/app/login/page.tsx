@@ -17,7 +17,7 @@ export default function LoginPage() {
       <div className="absolute top-4 left-4 md:top-8 md:left-8">
         <Link href="/" className="flex items-center space-x-2 text-primary">
           <Logo className="h-8 w-8" />
-          <span className="text-lg font-bold">UN shipping line</span>
+          <span className="text-lg font-bold">UN Air Cargo</span>
         </Link>
       </div>
       <Card className="w-full max-w-sm">

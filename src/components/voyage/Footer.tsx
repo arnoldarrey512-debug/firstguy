@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Briefcase, Globe, Ship, Anchor } from 'lucide-react';
+import { Briefcase, Globe, Plane, LandPlot } from 'lucide-react';
 
 export default function Footer() {
     return (
@@ -9,9 +9,9 @@ export default function Footer() {
                     <div>
                         <h3 className="mb-2 font-bold">Services</h3>
                         <ul className="space-y-2 text-sm text-muted-foreground">
-                            <li><Link href="/login" className="hover:underline">Ocean Transport</Link></li>
+                            <li><Link href="/login" className="hover:underline">Air Freight</Link></li>
                             <li><Link href="/login" className="hover:underline">Customs Services</Link></li>
-                            <li><Link href="/login" className="hover:underline">Inland Transport</Link></li>
+                            <li><Link href="/login" className="hover:underline">Ground Transport</Link></li>
                             <li><Link href="/login" className="hover:underline">Warehousing</Link></li>
                         </ul>
                     </div>
@@ -37,13 +37,13 @@ export default function Footer() {
                         <div className="flex space-x-4">
                             <Link href="#" aria-label="LinkedIn"><Briefcase className="h-5 w-5 text-muted-foreground hover:text-foreground" /></Link>
                             <Link href="#" aria-label="Facebook"><Globe className="h-5 w-5 text-muted-foreground hover:text-foreground" /></Link>
-                            <Link href="#" aria-label="YouTube"><Ship className="h-5 w-5 text-muted-foreground hover:text-foreground" /></Link>
-                            <Link href="#" aria-label="Twitter"><Anchor className="h-5 w-5 text-muted-foreground hover:text-foreground" /></Link>
+                            <Link href="#" aria-label="YouTube"><Plane className="h-5 w-5 text-muted-foreground hover:text-foreground" /></Link>
+                            <Link href="#" aria-label="Twitter"><LandPlot className="h-5 w-5 text-muted-foreground hover:text-foreground" /></Link>
                         </div>
                     </div>
                 </div>
                 <div className="container border-t py-4 text-center text-sm text-muted-foreground">
-                    © UN shipping line
+                    © UN Air Cargo
                 </div>
             </div>
         </footer>

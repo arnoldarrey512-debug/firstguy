@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, Briefcase, Globe, Ship, Warehouse, Anchor, Menu } from 'lucide-react';
+import { ArrowRight, Briefcase, Globe, Plane, Warehouse, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Logo from '@/components/voyage/Logo';
@@ -12,7 +12,7 @@ const Header = () => (
       <div className="mr-4 flex items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2">
           <Logo className="h-10 w-10" />
-          <span className="hidden font-bold md:inline">UN shipping line</span>
+          <span className="hidden font-bold md:inline">UN Air Cargo</span>
         </Link>
         <nav className="hidden space-x-6 text-sm font-medium md:flex">
           <Link href="/login">Services</Link>
@@ -37,7 +37,7 @@ const Header = () => (
             <nav className="grid gap-6 text-lg font-medium">
               <Link href="/" className="flex items-center gap-2 text-lg font-semibold">
                 <Logo className="h-10 w-10" />
-                <span className="sr-only">UN shipping line</span>
+                <span className="sr-only">UN Air Cargo</span>
               </Link>
               <Link href="/login">Services</Link>
               <Link href="/login">Schedules</Link>
@@ -63,12 +63,12 @@ export default function LandingPage() {
       <Header />
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative h-[60vh] bg-cover bg-center" style={{backgroundImage: "url('https://www.maersk.com/~/media_sc9/maersk/solutions/transportation-services/ocean-transport/images/ocean-transport_1920x600.jpg?h=600&w=1920&hash=7E26315CEEB3474480E2C1000597DD3A')"}} data-ai-hint="ocean container ship">
+        <section className="relative h-[60vh] bg-cover bg-center" style={{backgroundImage: "url('https://placehold.co/1920x600.png')"}} data-ai-hint="cargo plane sunset">
           <div className="absolute inset-0 bg-black/50" />
           <div className="container relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
-            <h1 className="text-4xl font-bold md:text-6xl">Ocean Transport</h1>
+            <h1 className="text-4xl font-bold md:text-6xl">Air Freight</h1>
             <p className="mt-4 max-w-2xl text-lg">
-              As one of the world's largest container shipping companies, we move 12 million containers every year and deliver to every corner of the globe.
+              As one of the world's largest air cargo companies, we move vital goods every day and deliver to every corner of the globe.
             </p>
             <div className="mt-8 flex gap-4">
               <Button size="lg" asChild><Link href="/login">Find a Price</Link></Button>
@@ -78,45 +78,45 @@ export default function LandingPage() {
         </section>
 
         <div className="container px-4 md:px-6">
-            {/* What is Ocean Freight Section */}
+            {/* What is Air Freight Section */}
             <section className="py-16 md:py-24">
                 <div className="grid gap-12 md:grid-cols-2 md:items-center">
                   <div className="text-left">
-                    <h2 className="text-3xl font-bold tracking-tight">What is Ocean Freight?</h2>
+                    <h2 className="text-3xl font-bold tracking-tight">What is Air Freight?</h2>
                     <p className="mt-4 text-lg text-muted-foreground">
-                      Ocean freight shipping is the method of transporting containerised cargo loaded onto vessels by ocean. Over 90% of all the world’s trade is carried by ocean transportation. If you want to ship your freight around the world, ocean transport is the most convenient option.
+                      Air freight is the method of transporting goods quickly by aircraft. It is the fastest shipping method and ideal for time-sensitive shipments. Over 52 million metric tons of goods are transported by air each year.
                     </p>
                     <p className="mt-4 text-lg text-muted-foreground">
-                      As a general rule, shipments weighing more than 100kg – or consisting of multiple cartons – will be sent by ocean transport. The containers are designed and built for intermodal freight transport. That means they can be used across various transportation modes – from ship to rail to truck – without unloading and reloading the cargo.
+                      As a general rule, smaller, high-value, or time-critical shipments are sent by air. Cargo is loaded into specialized containers called Unit Load Devices (ULDs), which are designed to fit securely in the aircraft's hold, ensuring the safety and integrity of the goods during transport.
                     </p>
                     <Button variant="link" className="mt-6 px-0 text-base" asChild><Link href="/login">View our services <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
                   </div>
                   <div className="flex items-center justify-center">
-                    <img src="https://www.maersk.com/~/media_sc9/maersk/solutions/transportation-services/ocean-transport/images/ocean-freight-ship-containers_720x405.jpg?w=1325&hash=464BB5C5D85515F125C16BA8705AADC0" alt="Ocean freight ship containers" className="rounded-lg shadow-2xl" data-ai-hint="container ship" />
+                    <img src="https://placehold.co/720x405.png" alt="Cargo being loaded onto a plane" className="rounded-lg shadow-2xl" data-ai-hint="airport cargo loading" />
                   </div>
                 </div>
             </section>
         </div>
 
         {/* Benefits Section */}
-        <section className="bg-muted py-16 md:py-24">
-            <div className="container px-4 md:px-6">
-              <h2 className="mb-12 text-center text-3xl font-bold tracking-tight">Benefits of Ocean Freight Shipping</h2>
+        <section className="bg-muted">
+            <div className="container px-4 py-16 md:px-6 md:py-24">
+              <h2 className="mb-12 text-center text-3xl font-bold tracking-tight">Benefits of Air Freight Shipping</h2>
               <div className="grid gap-8 md:grid-cols-2">
                 <Card className="shadow-lg">
                   <CardHeader>
-                    <CardTitle>Cost-Effective</CardTitle>
+                    <CardTitle>Speed</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground">A cost-effective transport method compared to other modes (e.g. air freight) over long distances.</p>
+                    <p className="text-muted-foreground">The fastest shipping method, ideal for time-sensitive goods and just-in-time supply chains.</p>
                   </CardContent>
                 </Card>
                 <Card className="shadow-lg">
                   <CardHeader>
-                    <CardTitle>Eco-Friendly</CardTitle>
+                    <CardTitle>Reliability & Security</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground">Produces lower greenhouse gas emissions than other shipping modes, making it a greener choice.</p>
+                    <p className="text-muted-foreground">Air freight offers highly reliable arrival and departure times, with enhanced security measures.</p>
                   </CardContent>
                 </Card>
               </div>
@@ -131,7 +131,7 @@ export default function LandingPage() {
               <Card className="text-center">
                 <CardHeader>
                   <CardTitle>Find Prices</CardTitle>
-                  <CardDescription>Ready to ship? Look up rates for new shipments and inland tariffs.</CardDescription>
+                  <CardDescription>Ready to ship? Look up rates for new shipments and tariffs.</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Button className="w-full" asChild><Link href="/login">Find a price</Link></Button>

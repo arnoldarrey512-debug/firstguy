@@ -4,7 +4,7 @@
 import { useEffect, useRef, useState } from 'react';
 import mapboxgl, { LngLatLike, Map as MapboxMap } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { Ship, Anchor, TriangleAlert } from 'lucide-react';
+import { Plane, LandPlot, TriangleAlert } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import ReactDOMServer from 'react-dom/server';
 
@@ -51,8 +51,8 @@ export default function Map({ shipPosition, route }: MapProps) {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v12',
-      center: [80, 25], 
-      zoom: 3,
+      center: [-40, 45], 
+      zoom: 2,
       interactive: true,
     });
     
@@ -120,13 +120,14 @@ export default function Map({ shipPosition, route }: MapProps) {
 
     // Add location markers
     // First remove old markers
-     document.querySelectorAll('.mapboxgl-marker').forEach(marker => marker.remove());
+     document.querySelectorAll('.mapboxgl-marker.location-marker').forEach(marker => marker.remove());
 
     allLocations.forEach(loc => {
       const el = document.createElement('div');
+      el.className = 'mapboxgl-marker location-marker';
       el.innerHTML = ReactDOMServer.renderToString(
         <div className="relative flex flex-col items-center">
-          <Anchor className="w-5 h-5 text-primary" />
+          <LandPlot className="w-5 h-5 text-primary" />
           <span className="mt-2 text-xs font-semibold text-primary/80 whitespace-nowrap bg-background/50 px-2 py-0.5 rounded-full">{loc.name}</span>
         </div>
       );
@@ -143,7 +144,7 @@ export default function Map({ shipPosition, route }: MapProps) {
     
     const shipEl = document.createElement('div');
     shipEl.style.transform = `rotate(${shipPosition.angle}deg)`;
-    shipEl.innerHTML = ReactDOMServer.renderToString(<Ship className="w-6 h-6 text-accent drop-shadow-lg" />);
+    shipEl.innerHTML = ReactDOMServer.renderToString(<Plane className="w-6 h-6 text-accent drop-shadow-lg" />);
 
     const coordinates: LngLatLike = [shipPosition.x, shipPosition.y];
 
@@ -151,16 +152,6 @@ export default function Map({ shipPosition, route }: MapProps) {
       shipMarker.current = new mapboxgl.Marker(shipEl)
         .setLngLat(coordinates)
         .addTo(map.current);
-      
-      map.current.flyTo({
-        center: coordinates,
-        zoom: 5,
-        speed: 0.5,
-        curve: 1,
-        easing(t) {
-          return t;
-        },
-      });
     } else {
       shipMarker.current.setLngLat(coordinates);
       shipMarker.current.getElement().style.transform = `rotate(${shipPosition.angle}deg)`;
