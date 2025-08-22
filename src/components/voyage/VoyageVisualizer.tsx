@@ -45,6 +45,7 @@ function VoyageVisualizerContent() {
   const [progress, setProgress] = useState(0);
   const [startTime, setStartTime] = useState<number | null>(null);
   const [currentRoute, setCurrentRoute] = useState<Route | null>(null);
+  const [stuckUntil, setStuckUntil] = useState<number | null>(null);
 
   const startTracking = (trackingId: string) => {
     const route = routes[trackingId];
@@ -53,17 +54,17 @@ function VoyageVisualizerContent() {
         setIsTracking(true);
         setError(null);
         setInputValue(trackingId);
-        // Simulate a progress point for demonstration
+        
         const totalDuration = route.reduce((acc, leg) => acc + leg.duration, 0);
         
         let timeToStart;
         if (trackingId === "US-DXB-KR-123") {
-            // Start 99.9% into the first leg to appear 'stuck' before Dubai
             const firstLegDuration = route[0].duration;
             timeToStart = firstLegDuration * 0.999;
+            setStuckUntil(Date.now() + FIVE_DAYS_IN_MS);
         } else {
-            // Default start time
-            timeToStart = totalDuration * 0.1; // Start 10% into the journey
+            timeToStart = totalDuration * 0.1;
+            setStuckUntil(null);
         }
         
         setStartTime(Date.now() - timeToStart);
@@ -82,6 +83,7 @@ function VoyageVisualizerContent() {
       setProgress(0);
       setStartTime(null);
       setCurrentRoute(null);
+      setStuckUntil(null);
   }
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -99,32 +101,27 @@ function VoyageVisualizerContent() {
       let elapsedTime = Date.now() - startTime;
       
       // Special logic for the "stuck" flight
-      if (inputValue === "US-DXB-KR-123") {
+      if (inputValue === "US-DXB-KR-123" && stuckUntil && Date.now() < stuckUntil) {
           const firstLegDuration = currentRoute[0].duration;
-          const stuckTime = firstLegDuration * 0.999;
-          
-          if (elapsedTime >= stuckTime && elapsedTime < stuckTime + FIVE_DAYS_IN_MS) {
-              // Freeze time at the stuck point
-              elapsedTime = stuckTime;
-              setStatusText("Delayed - Awaiting Landing Slot");
-          } else if (elapsedTime >= stuckTime + FIVE_DAYS_IN_MS) {
-              // Resume journey after 5 days, adjust elapsed time to account for delay
-              elapsedTime -= FIVE_DAYS_IN_MS;
-          }
+          elapsedTime = firstLegDuration * 0.999; // Freeze time at the stuck point
+          setStatusText("Delayed - Awaiting Landing Slot");
+      } else if (inputValue === "US-DXB-KR-123" && stuckUntil && Date.now() >= stuckUntil) {
+           // Resume journey after delay, adjust elapsed time
+           elapsedTime -= FIVE_DAYS_IN_MS;
       }
 
       const totalProgress = Math.min(elapsedTime / totalDuration, 1);
       
       const { position, currentStatus, nextDest, segmentProgress } = calculateShipPosition(totalProgress, currentRoute);
       
-      if (statusText !== "Delayed - Awaiting Landing Slot") {
+      if (statusText !== "Delayed - Awaiting Landing Slot" || (stuckUntil && Date.now() >= stuckUntil)) {
         setStatusText(currentStatus);
       }
       setShipPosition(position);
       setNextDestination(nextDest);
       setProgress(segmentProgress * 100);
 
-      if (totalProgress < 1) {
+      if (totalProgress < 1 || (stuckUntil && Date.now() < stuckUntil)) {
         animationFrameId = requestAnimationFrame(updatePosition);
       } else {
         const finalDestination = currentRoute[currentRoute.length - 1]?.end.name || 'final destination';
@@ -137,7 +134,7 @@ function VoyageVisualizerContent() {
     updatePosition();
 
     return () => cancelAnimationFrame(animationFrameId);
-  }, [isTracking, startTime, currentRoute, inputValue, statusText]);
+  }, [isTracking, startTime, currentRoute, inputValue, statusText, stuckUntil]);
   
 
   if (!isTracking || !currentRoute) {
