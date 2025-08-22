@@ -4,7 +4,7 @@ import { Youtube, Facebook, Linkedin, Instagram } from 'lucide-react';
 export default function Footer() {
     return (
         <footer className="w-full border-t bg-background">
-            <div className="container">
+            <div className="container px-4 md:px-6">
                 <div className="grid grid-cols-2 gap-8 py-12 md:grid-cols-4">
                     <div>
                         <h3 className="mb-4 font-bold">Quick Links</h3>
@@ -42,9 +42,9 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
-                <div className="container border-t py-4 text-center text-sm text-muted-foreground">
-                    © UN Air Cargo
-                </div>
+            </div>
+            <div className="container border-t py-4 text-center text-sm text-muted-foreground px-4 md:px-6">
+                © UN Air Cargo
             </div>
         </footer>
     );
