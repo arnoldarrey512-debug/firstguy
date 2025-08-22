@@ -46,8 +46,10 @@ export function calculateShipPosition(totalProgress: number, route: RouteSegment
   // If progress is 100% or more, lock to the final destination
   const lastSegment = route[route.length - 1];
   const { lng, lat } = lastSegment.end;
+  // Use previous segment's end to calculate final angle
   const prevSegment = route.length > 1 ? route[route.length - 2] : lastSegment;
-  const angle = Math.atan2(lastSegment.end.lat - prevSegment.end.lat, lastSegment.end.lng - prevSegment.end.lng) * (180 / Math.PI);
+  const prevPoint = route.length > 1 ? prevSegment.end : prevSegment.start;
+  const angle = Math.atan2(lastSegment.end.lat - prevPoint.lat, lastSegment.end.lng - prevPoint.lng) * (180 / Math.PI);
   return { 
     position: { x: lng, y: lat, angle },
     currentStatus: `Arrived at ${lastSegment.end.name}`,

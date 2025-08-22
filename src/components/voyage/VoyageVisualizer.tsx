@@ -11,11 +11,27 @@ import Map from './Map';
 import TrackingStatus from './TrackingStatus';
 import { calculateShipPosition } from '@/lib/voyage';
 import Logo from './Logo';
-import { useSearchParams } from 'next/navigation';
+
+type Location = { name: string; lng: number; lat: number };
+type Route = {
+    start: Location,
+    end: Location,
+    duration: number
+}[];
+
+const routes: Record<string, Route> = {
+    "US-FR-DE-456": [
+        { start: { name: "New York, USA", lng: -74.0060, lat: 40.7128 }, end: { name: "Gander, CA", lng: -54.6089, lat: 48.9569 }, duration: 20000 },
+        { start: { name: "Gander, CA", lng: -54.6089, lat: 48.9569 }, end: { name: "Shannon, IE", lng: -8.9248, lat: 52.6998 }, duration: 50000 },
+        { start: { name: "Shannon, IE", lng: -8.9248, lat: 52.6998 }, end: { name: "Frankfurt, DE", lng: 8.6821, lat: 50.1109 }, duration: 15000 },
+    ],
+    "US-DXB-KR-123": [
+        { start: { name: "New York, USA", lng: -73.7781, lat: 40.6413 }, end: { name: "Dubai, UAE", lng: 55.3657, lat: 25.2532 }, duration: 60000 },
+        { start: { name: "Dubai, UAE", lng: 55.3657, lat: 25.2532 }, end: { name: "Seoul, KR", lng: 126.4407, lat: 37.4602 }, duration: 40000 },
+    ]
+};
 
 function VoyageVisualizerContent() {
-  const searchParams = useSearchParams();
-
   const [isTracking, setIsTracking] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState('');
@@ -25,54 +41,21 @@ function VoyageVisualizerContent() {
   const [nextDestination, setNextDestination] = useState('');
   const [progress, setProgress] = useState(0);
   const [startTime, setStartTime] = useState<number | null>(null);
+  const [currentRoute, setCurrentRoute] = useState<Route | null>(null);
 
-  const { route, trackingId } = useMemo(() => {
-    // Default hardcoded route if no URL params are provided
-    const defaultRoute = [
-        { start: { name: "New York, USA", lng: -74.0060, lat: 40.7128 }, end: { name: "Gander, CA", lng: -54.6089, lat: 48.9569 }, duration: 20000 },
-        { start: { name: "Gander, CA", lng: -54.6089, lat: 48.9569 }, end: { name: "Shannon, IE", lng: -8.9248, lat: 52.6998 }, duration: 50000 },
-        { start: { name: "Shannon, IE", lng: -8.9248, lat: 52.6998 }, end: { name: "Frankfurt, DE", lng: 8.6821, lat: 50.1109 }, duration: 15000 },
-    ];
-    const defaultTrackingId = "US-FR-DE-456";
-
-    try {
-      const urlRoute = searchParams.get('route');
-      const urlTrackingId = searchParams.get('trackingId');
-      const urlCurrentPos = searchParams.get('currentPos');
-
-      if (urlRoute && urlTrackingId && urlCurrentPos) {
-        const parsedRoute = JSON.parse(decodeURIComponent(urlRoute));
-        if (Array.isArray(parsedRoute) && parsedRoute.length > 0) {
-          return {
-            route: parsedRoute,
-            trackingId: decodeURIComponent(urlTrackingId),
-            currentPos: parseFloat(urlCurrentPos)
-          };
-        }
-      }
-    } catch (e) {
-      console.error("Failed to parse route from URL", e);
-      // Fallback to default
+  const startTracking = (trackingId: string) => {
+    const route = routes[trackingId];
+    if (route) {
+        setCurrentRoute(route);
+        setIsTracking(true);
+        setError(null);
+        // Simulate a progress point for demonstration
+        const totalDuration = route.reduce((acc, leg) => acc + leg.duration, 0);
+        const timeToStart = totalDuration * 0.1; // Start 10% into the journey
+        setStartTime(Date.now() - timeToStart);
+    } else {
+        setError('Invalid tracking ID. Please try again.');
     }
-    
-    return { route: defaultRoute, trackingId: defaultTrackingId, currentPos: 0.85 };
-  }, [searchParams]);
-
-  useEffect(() => {
-    // If URL contains route info, start tracking immediately
-    if (searchParams.get('route')) {
-      startTracking();
-    }
-  }, [searchParams]);
-
-  const startTracking = () => {
-    setIsTracking(true);
-    let timeToFrankfurtApproach = 0;
-    // Calculate time elapsed to be near Frankfurt
-    const totalDuration = route.reduce((acc, leg) => acc + leg.duration, 0);
-    const progressToSet = searchParams.get('currentPos') ? parseFloat(searchParams.get('currentPos')!) : 0.85;
-    timeToFrankfurtApproach = totalDuration * progressToSet;
-    setStartTime(Date.now() - timeToFrankfurtApproach);
   };
   
   const resetTracking = () => {
@@ -84,31 +67,25 @@ function VoyageVisualizerContent() {
       setNextDestination('');
       setProgress(0);
       setStartTime(null);
-      // Clear URL params
-      window.history.pushState({}, '', '/tracking');
+      setCurrentRoute(null);
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (inputValue === trackingId) {
-      setError(null);
-      startTracking();
-    } else {
-      setError('Invalid tracking ID. Please try again.');
-    }
+    startTracking(inputValue);
   };
 
   useEffect(() => {
-    if (!isTracking || !startTime) return;
+    if (!isTracking || !startTime || !currentRoute) return;
 
-    const totalDuration = route.reduce((acc, segment) => acc + segment.duration, 0);
+    const totalDuration = currentRoute.reduce((acc, segment) => acc + segment.duration, 0);
     let animationFrameId: number;
 
     const updatePosition = () => {
       const elapsedTime = Date.now() - startTime;
       const totalProgress = Math.min(elapsedTime / totalDuration, 1);
       
-      const { position, currentStatus, nextDest, segmentProgress } = calculateShipPosition(totalProgress, route);
+      const { position, currentStatus, nextDest, segmentProgress } = calculateShipPosition(totalProgress, currentRoute);
       
       setShipPosition(position);
       setStatusText(currentStatus);
@@ -118,7 +95,7 @@ function VoyageVisualizerContent() {
       if (totalProgress < 1) {
         animationFrameId = requestAnimationFrame(updatePosition);
       } else {
-        const finalDestination = route[route.length - 1]?.end.name || 'final destination';
+        const finalDestination = currentRoute[currentRoute.length - 1]?.end.name || 'final destination';
         setStatusText(`Shipment has arrived at ${finalDestination}.`);
         setNextDestination('Journey complete');
         setProgress(100);
@@ -128,10 +105,10 @@ function VoyageVisualizerContent() {
     updatePosition();
 
     return () => cancelAnimationFrame(animationFrameId);
-  }, [isTracking, startTime, route]);
+  }, [isTracking, startTime, currentRoute]);
   
 
-  if (!isTracking) {
+  if (!isTracking || !currentRoute) {
     return (
       <Card className="w-full max-w-md shadow-lg animate-in fade-in zoom-in-95">
         <CardHeader>
@@ -149,7 +126,7 @@ function VoyageVisualizerContent() {
                 id="trackingId" 
                 value={inputValue} 
                 onChange={(e) => setInputValue(e.target.value)} 
-                placeholder={`e.g., ${trackingId}`}
+                placeholder="e.g., US-DXB-KR-123"
               />
             </div>
             <Button type="submit" className="w-full">Track Shipment</Button>
@@ -169,13 +146,13 @@ function VoyageVisualizerContent() {
         </div>
         <Button variant="outline" onClick={resetTracking}>Track Another Shipment</Button>
       </div>
-      <Map shipPosition={shipPosition} route={route} />
+      <Map shipPosition={shipPosition} route={currentRoute} />
       <TrackingStatus 
-        trackingId={trackingId}
+        trackingId={inputValue}
         statusText={statusText}
         nextDestination={nextDestination}
         progress={progress}
-        route={route}
+        route={currentRoute}
       />
     </div>
   );
