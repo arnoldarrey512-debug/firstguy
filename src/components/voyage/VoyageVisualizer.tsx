@@ -100,13 +100,11 @@ function VoyageVisualizerContent() {
     const updatePosition = () => {
       let elapsedTime = Date.now() - startTime;
       
-      // Special logic for the "stuck" flight
       if (inputValue === "US-DXB-KR-123" && stuckUntil && Date.now() < stuckUntil) {
           const firstLegDuration = currentRoute[0].duration;
-          elapsedTime = firstLegDuration * 0.999; // Freeze time at the stuck point
+          elapsedTime = firstLegDuration * 0.999; 
           setStatusText("Delayed - Awaiting Landing Slot");
       } else if (inputValue === "US-DXB-KR-123" && stuckUntil && Date.now() >= stuckUntil) {
-           // Resume journey after delay, adjust elapsed time
            elapsedTime -= FIVE_DAYS_IN_MS;
       }
 
@@ -175,14 +173,20 @@ function VoyageVisualizerContent() {
         </div>
         <Button variant="outline" onClick={resetTracking}>Track Another Shipment</Button>
       </div>
-      <Map shipPosition={shipPosition} route={currentRoute} />
-      <TrackingStatus 
-        trackingId={inputValue}
-        statusText={statusText}
-        nextDestination={nextDestination}
-        progress={progress}
-        route={currentRoute}
-      />
+      <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2">
+          <Map shipPosition={shipPosition} route={currentRoute} />
+        </div>
+        <div className="lg:col-span-1">
+          <TrackingStatus 
+            trackingId={inputValue}
+            statusText={statusText}
+            nextDestination={nextDestination}
+            progress={progress}
+            route={currentRoute}
+          />
+        </div>
+      </div>
     </div>
   );
 }
